@@ -4,8 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
-  // output   = "../generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
   // moduleFormat = "cjs"
 }
 
@@ -19,6 +19,7 @@ model User {
   email       String   @unique
   password    String
   role        Role @default(CITIZEN)
+  refreshToken String?  // Optional field for storing refresh tokens
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

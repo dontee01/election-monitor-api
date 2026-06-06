@@ -16,8 +16,26 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, UsersModule, IncidentsModule, PollingUnitsModule, ResultsModule, PrismaModule, ConfigModule.forRoot({ isGlobal: true })],
-  controllers: [AppController, IncidentsController, ResultsController, PollingUnitsController],
-  providers: [AppService, IncidentsService, ResultsService, PollingUnitsService],
+  imports: [
+    AuthModule, 
+    UsersModule, 
+    IncidentsModule, 
+    PollingUnitsModule, 
+    ResultsModule, 
+    PrismaModule, 
+    ConfigModule.forRoot({ isGlobal: true })
+  ],
+  controllers: [
+    AppController, 
+    IncidentsController, 
+    ResultsController, 
+    PollingUnitsController
+  ],
+  providers: [
+    AppService, 
+    IncidentsService, 
+    ResultsService, 
+    PollingUnitsService
+  ],
 })
 export class AppModule {}
