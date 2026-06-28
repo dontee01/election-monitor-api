@@ -14,6 +14,10 @@ import { PollingUnitsModule } from './modules/polling-units/polling-units.module
 import { ResultsModule } from './modules/results/results.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { StatesModule } from './modules/states/states.module';
+import { LgasModule } from './modules/lgas/lgas.module';
+import { WardsModule } from './modules/wards/wards.module';
+import { StatesController } from './modules/geography/states/states.controller';
 
 @Module({
   imports: [
@@ -23,13 +27,17 @@ import { ConfigModule } from '@nestjs/config';
     PollingUnitsModule, 
     ResultsModule, 
     PrismaModule, 
-    ConfigModule.forRoot({ isGlobal: true })
+    ConfigModule.forRoot({ isGlobal: true }), 
+    StatesModule, 
+    LgasModule, 
+    WardsModule
   ],
   controllers: [
     AppController, 
     IncidentsController, 
     ResultsController, 
-    PollingUnitsController
+    PollingUnitsController, 
+    StatesController
   ],
   providers: [
     AppService, 

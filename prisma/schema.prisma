@@ -6,7 +6,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
-  // moduleFormat = "cjs"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -29,4 +29,49 @@ enum Role {
   AGENT
   CITIZEN
   OBSERVER
+}
+
+model State {
+  id        String @id @default(uuid())
+  name      String @unique
+  code      String @unique
+  lgas      Lga[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lga {
+  id        String @id @default(uuid())
+  name      String
+  stateId   String
+  state     State @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  wards     Ward[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, stateId])
+}
+
+model Ward {
+  id        String @id @default(uuid())
+  name      String
+  lgaId     String
+  lga       Lga @relation(fields: [lgaId], references: [id], onDelete: Cascade)
+  pollingUnits PollingUnit[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, lgaId])
+}
+
+model PollingUnit {
+  id            String @id @default(uuid())
+  code          String @unique
+  name          String
+  latitude      Decimal?
+  longitude     Decimal?
+  wardId        String
+  ward          Ward @relation(fields: [wardId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

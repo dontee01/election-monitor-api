@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { Roles } from 'src/common/decorators/roles.decorator';
@@ -13,7 +13,12 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get('me')
     me(@CurrentUser() user: any) {
-        return user;
+    // me(@Request() req: any) {
+        // const user = req.user;
+        return {
+            message: "Profile fetched successfully",
+            user
+        };
     }
 
     @UseGuards(

@@ -171,7 +171,8 @@ export class AuthService {
                 ),
         });
 
-        const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+        // const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+        const hashedRefreshToken = refreshToken;
 
         await this.prisma.user.update({
             where: { id: userId },

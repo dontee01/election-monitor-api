@@ -15,13 +15,13 @@ import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
       inject: [ConfigService],
 
       useFactory: (config: ConfigService): JwtModuleOptions => {
-        const secret = config.get<string>('JWT_SECRET');
+        const secret = config.get<string>('JWT_ACCESS_SECRET');
         const expiresIn = config.get<string>('JWT_EXPIRES_IN');
 
         // JwtModule expects expiresIn to be number | StringValue | undefined; cast the string to satisfy the type
         return {
           secret,
-          signOptions: expiresIn ? { expiresIn: expiresIn as unknown as any } : undefined,
+          // signOptions: expiresIn ? { expiresIn: expiresIn as unknown as any } : undefined,
         };
       }
     }),
