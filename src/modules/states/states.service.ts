@@ -8,6 +8,11 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 import { CreateStateDto } from './dto/create-state.dto';
 import { UpdateStateDto } from './dto/update-state.dto';
+import { ErrorMessages } from 'src/common/constants/error-messages';
+import { QueryStateDto } from './dto/query-state.dto';
+import { paginate } from 'src/common/pagination/pagination.helper';
+import { Prisma } from 'generated/prisma/client';
+import { StateMessages } from './constants/state.constants';
 
 @Injectable()
 export class StatesService {
@@ -37,25 +42,60 @@ export class StatesService {
     });
   }
 
-  async findAll() {
-    return this.prisma.state.findMany({
-      orderBy: {
-        name: 'asc',
-      },
-    });
+  async findAll(query: QueryStateDto) {
+    const { page, limit, search, sortBy, order } = query;
+
+    const skip = (page - 1) * limit;
+
+    console.log('Query:', query);
+    const where: Prisma.StateWhereInput = search
+      ? {
+          name: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        }
+      : {};
+
+    const [data, total] = 
+        await this.prisma.$transaction([
+            this.prisma.state.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: {
+                    // [sortBy || 'name']: order || 'asc',
+                    name: 'asc',
+                },
+            }),
+            this.prisma.state.count({ where, }),
+        ]);
+        console.log('Data:', data);
+
+        return paginate(data, total, page, limit);
+
+    // return this.prisma.state.findMany({
+    //   where: {
+    //     deletedAt: null
+    //   },
+    //   orderBy: {
+    //     name: 'asc',
+    //   },
+    // });
   }
 
   async findOne(id: string) {
-    const state =
-      await this.prisma.state.findUnique({
-        where: { id },
-      });
+    // const state =
+    //   await this.prisma.state.findUnique({
+    //     where: { id },
+    //   });
 
-    if (!state) {
-      throw new NotFoundException(
-        'State not found',
-      );
-    }
+    // if (!state) {
+    //   throw new NotFoundException(
+    //     'State not found',
+    //   );
+    // }
+    const state = await this.ensureExists(id);
 
     return state;
   }
@@ -64,7 +104,8 @@ export class StatesService {
     id: string,
     dto: UpdateStateDto,
   ) {
-    await this.findOne(id);
+    // await this.findOne(id);
+    await this.findStateOrThrow(id);
 
     return this.prisma.state.update({
       where: { id },
@@ -73,7 +114,8 @@ export class StatesService {
   }
 
   async remove(id: string) {
-    await this.findOne(id);
+    // await this.findOne(id);
+    await this.findStateOrThrow(id);
 
     await this.prisma.state.delete({
       where: { id },
@@ -83,4 +125,43 @@ export class StatesService {
       message: 'State deleted successfully',
     };
   }
+
+  // private ensureUnique();
+
+  private async ensureExists(id: string) {
+
+    const state =
+      await this.prisma.state.findUnique({
+        where: { id },
+      });
+
+    if (!state)
+        throw new NotFoundException(ErrorMessages.STATE_NOT_FOUND);
+
+    return state;
+  }
+
+  private async findStateOrThrow(
+      id: string,
+  ) {
+
+      const state =
+          await this.prisma.state.findUnique({
+              where: {
+                  id,
+              },
+          });
+
+      if (!state) {
+
+          throw new NotFoundException(
+              StateMessages.NOT_FOUND,
+          );
+
+      }
+
+      return state;
+
+  }
+
 }

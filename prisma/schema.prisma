@@ -22,6 +22,7 @@ model User {
   refreshToken String?  // Optional field for storing refresh tokens
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
 }
 
 enum Role {
@@ -38,6 +39,9 @@ model State {
   lgas      Lga[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  createdBy String?
+  updatedBy String?
 }
 
 model Lga {
@@ -48,6 +52,9 @@ model Lga {
   wards     Ward[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  createdBy String?
+  updatedBy String?
 
   @@unique([name, stateId])
 }
@@ -60,6 +67,9 @@ model Ward {
   pollingUnits PollingUnit[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  createdBy String?
+  updatedBy String?
 
   @@unique([name, lgaId])
 }
@@ -74,4 +84,7 @@ model PollingUnit {
   ward          Ward @relation(fields: [wardId], references: [id], onDelete: Cascade)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+  createdBy     String?
+  updatedBy     String?
 }

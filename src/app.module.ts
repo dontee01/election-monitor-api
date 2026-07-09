@@ -18,6 +18,7 @@ import { StatesModule } from './modules/states/states.module';
 import { LgasModule } from './modules/lgas/lgas.module';
 import { WardsModule } from './modules/wards/wards.module';
 import { StatesController } from './modules/geography/states/states.controller';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 
 @Module({
   imports: [
@@ -43,7 +44,11 @@ import { StatesController } from './modules/geography/states/states.controller';
     AppService, 
     IncidentsService, 
     ResultsService, 
-    PollingUnitsService
+    PollingUnitsService,
+    {
+      provide: 'APP_INTERCEPTOR',
+      useClass: ResponseInterceptor,
+    },
   ],
 })
 export class AppModule {}

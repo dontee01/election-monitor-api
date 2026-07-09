@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
@@ -20,7 +21,14 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 
 import { Role } from '../../common/enums/role.enum';
+import { ParseUuidPipe } from 'src/common/pipes/parse-uuid.pipe';
+import { ResponseMessage } from 'src/common/decorators/response-message.decorator';
+import { StateMessages } from './constants/state.constants';
+import { QueryStateDto } from './dto/query-state.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('States')
+@ApiBearerAuth()
 @Controller('states')
 export class StatesController {
   constructor(
@@ -32,7 +40,10 @@ export class StatesController {
     JwtAuthGuard,
     RolesGuard,
   )
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN,
+    Role.CITIZEN
+  )
+  @ResponseMessage(StateMessages.CREATED)
   create(
     @Body() dto: CreateStateDto,
   ) {
@@ -40,13 +51,14 @@ export class StatesController {
   }
 
   @Get()
-  findAll() {
-    return this.statesService.findAll();
+  findAll(@Query() query: QueryStateDto) {
+    return this.statesService.findAll(query);
   }
 
   @Get(':id')
+  @ResponseMessage('State fetched successfully')
   findOne(
-    @Param('id') id: string,
+    @Param('id', ParseUuidPipe) id: string,
   ) {
     return this.statesService.findOne(id);
   }
@@ -56,9 +68,9 @@ export class StatesController {
     JwtAuthGuard,
     RolesGuard,
   )
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.CITIZEN)
   update(
-    @Param('id') id: string,
+    @Param('id', ParseUuidPipe) id: string,
     @Body() dto: UpdateStateDto,
   ) {
     return this.statesService.update(
@@ -73,7 +85,7 @@ export class StatesController {
     RolesGuard,
   )
   @Roles(Role.ADMIN)
-  remove(@Param('id') id: string,) {
+  remove(@Param('id', ParseUuidPipe ) id: string,) {
     return this.statesService.remove(id);
   }
 }
