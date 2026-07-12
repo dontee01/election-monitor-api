@@ -9,7 +9,10 @@ export class CreateStateDto {
   @IsNotEmpty()
   name!: string;
 
+  @ApiProperty({
+    example: 'LA'
+  })
   @IsString()
   @Length(2, 5)
-  code: string;
+  code!: string;
 }

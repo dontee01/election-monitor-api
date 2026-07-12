@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-export class CreateWardDto {
+export class CreateLgaDto {
   @ApiProperty({
-    example: 'Ward A',
+    example: 'Ikeja',
   })
   @IsString()
   @IsNotEmpty()
@@ -11,5 +11,5 @@ export class CreateWardDto {
 
   @ApiProperty()
   @IsUUID()
-  lgaId: string;
+  stateId: string;
 }
