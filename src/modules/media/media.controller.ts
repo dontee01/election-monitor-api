@@ -34,6 +34,7 @@ import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { JwtUser } from 'src/common/types/jwt-user.type';
 import { QueryMediaDto } from './dto/query-media.dto';
 import { Multer } from 'multer';
+import { CustomFileExtensionValidator } from 'src/shared/validators/ccustom-file-extension-validator';
 
 @ApiBearerAuth()
 @ApiTags('Media')
@@ -48,7 +49,16 @@ export class MediaController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   upload(
-    @UploadedFile()
+    @UploadedFile(
+    new ParseFilePipe({
+      validators: [
+        new MaxFileSizeValidator({ maxSize: 50 * 1024 * 1024 }), // 50MB
+        new CustomFileExtensionValidator({
+          allowedExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.mp4', '.mov', '.avi', '.mp3', '.wav', '.aac', '.pdf']
+        })
+      ],
+    }),
+  )
   file: Express.Multer.File,
   @Body() dto: UploadMediaDto,
   @CurrentUser() user: any,
