@@ -22,6 +22,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { ElectionsModule } from './modules/elections/elections.module';
 import { IncidentCommandService } from './modules/incidents/commands/incident-command.service';
 import { ElectionsController } from './modules/elections/elections.controller';
+import { MediaModule } from './modules/media/media.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { ElectionsController } from './modules/elections/elections.controller';
     StatesModule, 
     LgasModule, 
     WardsModule, 
-    ElectionsModule
+    ElectionsModule,
+    MediaModule,
   ],
   controllers: [
     AppController, 

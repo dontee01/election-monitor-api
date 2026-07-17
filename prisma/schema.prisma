@@ -23,9 +23,10 @@ model User {
 
   reportedIncidents   Incident[] @relation("ReportedIncidents")
   verifiedIncidents   Incident[] @relation("VerifiedIncidents")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+  uploadedMedia       Media[]
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  deletedAt           DateTime?
 }
 
 enum Role {
@@ -79,6 +80,13 @@ enum ElectionType {
   STATE_ASSEMBLY
   LOCAL_GOVERNMENT
   BY_ELECTION
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
 }
 
 model State {
@@ -218,7 +226,7 @@ model Incident {
   verifierId    String?
   verifier      User? @relation("VerifiedIncidents", fields:[verifierId], references:[id])
 
-  media         IncidentMedia[]
+  media         Media[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -230,14 +238,26 @@ model Incident {
   @@index([electionId])
 }
 
-model IncidentMedia {
-  id            String @id @default(uuid())
-  incidentId    String
-  incident      Incident @relation(fields:[incidentId], references:[id], onDelete: Cascade)
-  fileName      String
-  fileUrl       String
+model Media {
+  id            String    @id @default(uuid())
+  reference     String    @unique
+  type          MediaType
+  url           String
+  originalName  String
   mimeType      String
-  size          Int
+  extension     String
+  fileSize      Int
+
+  uploadedAt    DateTime @default(now())
+  uploadedById  String
+  uploadedBy    User @relation(fields: [uploadedById], references: [id])
+
+  incidentId    String?
+  incident      Incident? @relation(fields: [incidentId], references: [id], onDelete: Cascade)
 
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([incidentId])
+  @@index([uploadedById])
 }
