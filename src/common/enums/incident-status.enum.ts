@@ -1,0 +1,6 @@
+export enum IncidentStatus {
+  PENDING = 'PENDING',
+  INVESTIGATING = 'INVESTIGATING',
+  RESOLVED = 'RESOLVED',
+  DISMISSED = 'DISMISSED',
+}

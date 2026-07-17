@@ -20,7 +20,7 @@ model User {
   password    String
   role        Role @default(CITIZEN)
   refreshToken String?  // Optional field for storing refresh tokens
-  
+
   reportedIncidents   Incident[] @relation("ReportedIncidents")
   verifiedIncidents   Incident[] @relation("VerifiedIncidents")
   createdAt   DateTime @default(now())
@@ -35,16 +35,25 @@ enum Role {
   OBSERVER
 }
 
+enum Visibility {
+  PRIVATE
+  PUBLIC
+}
+
 enum IncidentCategory {
   LOW_TURNOUT
   LATE_OPENING
-  NO_MATERIALS
+  EARLY_CLOSURE
+  MISSING_MATERIALS
   VIOLENCE
-  BALLOT_SNATCHING
   INTIMIDATION
-  OVER_VOTING
-  MALFUNCTION
   VOTE_BUYING
+  BALLOT_SNATCHING
+  UNDERAGE_VOTING
+  OVER_VOTING
+  DEVICE_FAILURE
+  SECURITY_ISSUE
+  RESULT_TAMPERING
   OTHER
 }
 
@@ -60,6 +69,16 @@ enum IncidentStatus {
   VERIFIED
   REJECTED
   RESOLVED
+}
+
+enum ElectionType {
+  PRESIDENTIAL
+  GOVERNORSHIP
+  SENATORIAL
+  HOUSE_OF_REPS
+  STATE_ASSEMBLY
+  LOCAL_GOVERNMENT
+  BY_ELECTION
 }
 
 model State {
@@ -127,24 +146,38 @@ model PollingUnit {
   @@index([code])
 }
 
+// model Election {
+//   id          String   @id @default(uuid())
+//   name        String
+//   typeId      String
+//   type        ElectionType @relation(fields: [typeId], references: [id])
+//   electionDate DateTime
+//   isActive    Boolean  @default(false)
+
+//   incidents   Incident[]
+//   results     ElectionResult[]
+// }
+
 model Election {
-  id          String   @id @default(uuid())
-  name        String
-  typeId      String
-  type        ElectionType @relation(fields: [typeId], references: [id])
-  electionDate DateTime
-  isActive    Boolean  @default(false)
-
-  incidents   Incident[]
-  results     ElectionResult[]
+  id            String   @id @default(uuid())
+  name          String
+  description   String?
+  type          ElectionType
+  electionDate  DateTime
+  reference     String   @unique
+  isActive      Boolean @default(false)
+  incidents      Incident[]
+  results        ElectionResult[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
-model ElectionType {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String?
-  elections   Election[]
-}
+// model ElectionType {
+//   id          String   @id @default(uuid())
+//   name        String   @unique
+//   description String?
+//   elections   Election[]
+// }
 
 model ElectionResult {
   id            String   @id @default(uuid())
@@ -160,39 +193,51 @@ model ElectionResult {
 }
 
 model Incident {
-  id String @id @default(uuid())
-  title String
-  description String @db.Text
-  category IncidentCategory
-  severity Severity
-  status IncidentStatus @default(PENDING)
-  latitude Decimal?
-  longitude Decimal?
-  electionId String
-  election Election @relation(fields: [electionId], references: [id])
+  id            String @id @default(uuid())
+  reference     String   @unique
+  title         String
+  description   String @db.Text
+  category      IncidentCategory
+  severity      Severity
+  status        IncidentStatus @default(PENDING)
+  visibility    Visibility @default(PRIVATE)
+
+  occurredAt    DateTime?
+  latitude      Decimal?
+  longitude     Decimal?
+
+  electionId    String
+  election      Election @relation(fields:[electionId], references:[id])
+
   pollingUnitId String
-  pollingUnit PollingUnit @relation(fields: [pollingUnitId], references: [id])
+  pollingUnit   PollingUnit @relation(fields:[pollingUnitId], references:[id])
 
-  reporterId String
-  reporter User @relation("ReportedIncidents", fields: [reporterId], references: [id])
-  media IncidentMedia[]
+  reporterId    String
+  reporter      User @relation("ReportedIncidents", fields:[reporterId], references:[id])
 
-  verifiedById String?
-  verifiedBy User? @relation("VerifiedIncidents", fields:[verifiedById], references:[id])
-  verifiedAt DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  verifierId    String?
+  verifier      User? @relation("VerifiedIncidents", fields:[verifierId], references:[id])
 
+  media         IncidentMedia[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@index([severity])
+  @@index([pollingUnitId])
+  @@index([reporterId])
+  @@index([electionId])
 }
 
 model IncidentMedia {
-  id String @id @default(uuid())
-  incidentId String
-  incident Incident @relation(fields:[incidentId], references:[id], onDelete: Cascade)
-  fileName String
-  fileUrl String
-  mimeType String
-  size Int
+  id            String @id @default(uuid())
+  incidentId    String
+  incident      Incident @relation(fields:[incidentId], references:[id], onDelete: Cascade)
+  fileName      String
+  fileUrl       String
+  mimeType      String
+  size          Int
 
-  createdAt DateTime @default(now())
+  createdAt     DateTime @default(now())
 }

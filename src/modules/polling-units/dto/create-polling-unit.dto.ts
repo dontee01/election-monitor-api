@@ -1,25 +1,40 @@
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsBoolean, IsDate } from 'class-validator';
 
 export class CreatePollingUnitDto {
   @IsString()
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
   code: string;
 
   @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @IsUUID()
-  wardId: string;
-
+  @IsString()
   @IsOptional()
+  description?: string;
+
   @IsNumber()
+  @IsOptional()
   latitude?: number;
 
-  @IsOptional()
   @IsNumber()
+  @IsOptional()
   longitude?: number;
+
+  @IsString()
+  @IsNotEmpty()
+  wardId: string;
+
+  @IsBoolean()
+  isActive: boolean;
+
+  @IsDate()
+  createdAt: Date;
+
+  @IsDate()
+  updatedAt: Date;
 }

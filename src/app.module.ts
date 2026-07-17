@@ -19,6 +19,9 @@ import { LgasModule } from './modules/lgas/lgas.module';
 import { WardsModule } from './modules/wards/wards.module';
 import { StatesController } from './modules/geography/states/states.controller';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { ElectionsModule } from './modules/elections/elections.module';
+import { IncidentCommandService } from './modules/incidents/commands/incident-command.service';
+import { ElectionsController } from './modules/elections/elections.controller';
 
 @Module({
   imports: [
@@ -31,20 +34,23 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
     ConfigModule.forRoot({ isGlobal: true }), 
     StatesModule, 
     LgasModule, 
-    WardsModule
+    WardsModule, 
+    ElectionsModule
   ],
   controllers: [
     AppController, 
     IncidentsController, 
     ResultsController, 
     PollingUnitsController, 
-    StatesController
+    StatesController,
+    ElectionsController
   ],
   providers: [
     AppService, 
     IncidentsService, 
     ResultsService, 
-    PollingUnitsService,
+    // PollingUnitsService,
+    // IncidentCommandService,
     {
       provide: 'APP_INTERCEPTOR',
       useClass: ResponseInterceptor,
