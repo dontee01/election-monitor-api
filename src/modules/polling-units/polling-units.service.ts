@@ -8,7 +8,7 @@ import { CreatePollingUnitDto } from './dto/create-polling-unit.dto';
 import { UpdatePollingUnitDto } from './dto/update-polling-unit.dto';
 import { QueryPollingUnitDto } from './dto/query-polling-unit.dto';
 
-import { Prisma } from '@prisma/client';
+import { Prisma } from 'generated/prisma/client';
 
 import { paginate } from '../../common/pagination/pagination.helper';
 
