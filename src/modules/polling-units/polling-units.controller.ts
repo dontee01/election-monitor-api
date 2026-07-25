@@ -25,7 +25,7 @@ import { ResponseMessage } from '../../common/decorators/response-message.decora
 
 import { ParseUuidPipe } from '../../common/pipes/parse-uuid.pipe';
 
-import { Role } from 'generated/prisma/client';
+import { Role } from 'src/generated/prisma/client';
 import { PollingUnitMessages } from './constants/polling-unit.constants';
 
 @ApiTags('Polling Units')

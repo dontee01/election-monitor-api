@@ -3,7 +3,7 @@ import {
   IncidentCategory,
   IncidentStatus,
   Severity,
-} from 'generated/prisma/enums';
+} from 'src/generated/prisma/enums';
 import {
   IsEnum,
   IsInt,

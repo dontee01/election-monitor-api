@@ -11,7 +11,7 @@ import { UpdateStateDto } from './dto/update-state.dto';
 import { ErrorMessages } from 'src/common/constants/error-messages';
 import { QueryStateDto } from './dto/query-state.dto';
 import { paginate } from 'src/common/pagination/pagination.helper';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 import { StateMessages } from './constants/state.constants';
 
 @Injectable()

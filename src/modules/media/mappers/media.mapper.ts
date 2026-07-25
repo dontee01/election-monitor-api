@@ -1,4 +1,4 @@
-import { Media } from "generated/prisma/client";
+import { Media } from "src/generated/prisma/client";
 
 export class MediaMapper {
   static toResponse(media: Media) {

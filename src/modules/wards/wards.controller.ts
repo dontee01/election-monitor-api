@@ -25,7 +25,7 @@ import { ResponseMessage } from '../../common/decorators/response-message.decora
 
 import { ParseUuidPipe } from '../../common/pipes/parse-uuid.pipe';
 
-import { Role } from 'generated/prisma/client';
+import { Role } from 'src/generated/prisma/client';
 import { WardMessages } from './constants/ward.constants';
 
 @ApiTags('Wards')

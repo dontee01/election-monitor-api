@@ -18,7 +18,8 @@
  */
 
 // import { PrismaClient, Role } from "../../generated/prisma";
-import { PrismaClient, Role } from "generated/prisma/client";
+import { PrismaClient, Role } from "src/generated/prisma/client";
+// import { PrismaClient, Role } from "generated/prisma/client";
 import { createPrismaClient } from 'src/lib/prisma';
 import * as bcrypt from "bcrypt";
 

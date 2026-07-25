@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   MediaType,
-} from 'generated/prisma/enums';
+} from 'src/generated/prisma/enums';
 
 import { Type } from 'class-transformer';
 import {

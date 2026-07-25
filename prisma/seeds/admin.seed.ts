@@ -1,4 +1,5 @@
-import { PrismaClient } from "generated/prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "src/generated/prisma/client";
 import * as bcrypt from 'bcrypt';
 import { Role } from "src/common/enums/role.enum";
 import { createPrismaClient } from "src/lib/prisma";

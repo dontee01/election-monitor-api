@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsString, IsNotEmpty, IsOptional, IsEnum, IsDateString, IsBoolean } from 'class-validator';
-import { ElectionType } from 'generated/prisma/enums'; // Assuming ElectionType is exported from your Prisma client or a shared enum file
+import { ElectionType } from 'src/generated/prisma/enums'; // Assuming ElectionType is exported from your Prisma client or a shared enum file
 
 // Assuming ElectionType is exported from your Prisma client or a shared enum file
 // export enum ElectionType {

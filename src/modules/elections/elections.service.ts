@@ -11,7 +11,7 @@ import { QueryElectionDto } from './dto/query-election.dto';
 import { paginate } from '../../common/pagination/pagination.helper';
 
 import { ElectionMessages } from './constants/election.constants';
-import { Prisma } from 'generated/prisma/client'; // ✅ Fixed Import
+import { Prisma } from 'src/generated/prisma/client'; // ✅ Fixed Import
 
 @Injectable()
 export class ElectionsService {

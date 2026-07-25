@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsOptional, IsUUID } from "class-validator";
-import { MediaType } from "generated/prisma/enums";
+import { MediaType } from "src/generated/prisma/enums";
 
 export class UploadMediaDto {
 

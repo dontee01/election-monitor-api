@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 import { QueryIncidentDto } from '../dto/query-incident.dto';
 import { IncidentRepository } from '../repositories/incident.repository';
-import { QueryMode } from 'generated/prisma/internal/prismaNamespace';
+import { QueryMode } from 'src/generated/prisma/internal/prismaNamespace';
 import { IncidentMessages } from '../constants/incident.constants';
 import { buildPaginationMeta } from 'src/common/pagination/pagination.util';
 

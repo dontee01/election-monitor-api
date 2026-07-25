@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 
 import { PrismaService } from '../../prisma/prisma.service';
-import { Prisma } from 'generated/prisma/client';
+// import { Prisma } from 'generated/prisma/client';
+import { Prisma } from "src/generated/prisma/client";
 
 import { paginate } from '../../common/pagination/pagination.helper';
 
@@ -14,7 +15,7 @@ import { UpdateWardDto } from './dto/update-ward.dto';
 import { QueryWardDto } from './dto/query-ward.dto';
 
 import { WardMessages } from './constants/ward.constants';
-import { QueryMode } from 'generated/prisma/internal/prismaNamespace';
+import { QueryMode } from 'src/generated/prisma/internal/prismaNamespace';
 
 @Injectable()
 export class WardsService {

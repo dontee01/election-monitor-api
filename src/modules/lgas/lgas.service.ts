@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 // import { Prisma, QueryMode } from '@prisma/client';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 
 import { paginate } from '../../common/pagination/pagination.helper';
 import { CreateLgaDto } from './dto/create-lga.dto';
 import { UpdateLgaDto } from './dto/update-lga.dto';
 import { QueryLgaDto } from './dto/query-lga.dto';
 import { LgaMessages } from './constants/lga.constants';
-import { QueryMode } from 'generated/prisma/internal/prismaNamespace';
+import { QueryMode } from 'src/generated/prisma/internal/prismaNamespace';
 
 @Injectable()
 export class LgasService {

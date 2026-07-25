@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 import { buildPaginationMeta } from 'src/common/pagination/pagination.util';
 import { MediaRepository } from '../repositories/media.repository';
 import { QueryMediaDto } from '../dto/query-media.dto';

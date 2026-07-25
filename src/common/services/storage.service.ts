@@ -5,7 +5,7 @@ import {
 import { promises as fs } from 'fs';
 import { join, extname } from 'path';
 import { randomUUID } from 'crypto';
-import { MediaType } from 'generated/prisma/client';
+import { MediaType } from 'src/generated/prisma/client';
 import { Multer } from 'multer';
 
 @Injectable()

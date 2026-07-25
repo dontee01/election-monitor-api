@@ -8,12 +8,12 @@ import { CreatePollingUnitDto } from './dto/create-polling-unit.dto';
 import { UpdatePollingUnitDto } from './dto/update-polling-unit.dto';
 import { QueryPollingUnitDto } from './dto/query-polling-unit.dto';
 
-import { Prisma } from 'generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 
 import { paginate } from '../../common/pagination/pagination.helper';
 
 import { PollingUnitMessages } from './constants/polling-unit.constants';
-import { QueryMode } from 'generated/prisma/internal/prismaNamespace';
+import { QueryMode } from 'src/generated/prisma/internal/prismaNamespace';
 
 @Injectable()
 export class PollingUnitsService {

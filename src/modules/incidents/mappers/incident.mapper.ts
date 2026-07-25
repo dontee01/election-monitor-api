@@ -1,4 +1,4 @@
-import { Incident } from "generated/prisma/client";
+import { Incident } from "src/generated/prisma/client";
 
 export class IncidentMapper {
   static toResponse(incident: Incident) {

@@ -12,7 +12,9 @@
  * PollingUnit.code) so re-running won't create duplicates.
  */
 
-import { PrismaClient, Role } from "generated/prisma/client";
+// import { PrismaClient, Role } from "generated/prisma/client";
+// import { PrismaClient } from 'src/generated/prisma/client';
+import { PrismaClient } from "src/generated/prisma/client";
 import { createPrismaClient } from 'src/lib/prisma';
 import { OYO_STATE, OYO_LGAS } from "../data/oyo-state.data";
 
