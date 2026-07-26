@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/main.ts",
+      "src": "dist/main.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["generated/prisma/client/**"]
+        "includeFiles": ["dist/src/generated/prisma/client/**"]
       }
     }
   ],
@@ -16,4 +16,3 @@
     }
   ]
 }
-
