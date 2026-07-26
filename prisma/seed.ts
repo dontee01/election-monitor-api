@@ -1,6 +1,6 @@
 
-// import { PrismaClient, Role } from 'generated/prisma/client';
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient, Role } from 'src/generated/prisma/client';
+// import { PrismaClient, Role } from "@prisma/client";
 import { seedUsers } from "./seeds/users.seed";
 import { seedOyoState } from "./seeds/states/oyo.seed";
 import { createPrismaClient } from 'src/lib/prisma';
