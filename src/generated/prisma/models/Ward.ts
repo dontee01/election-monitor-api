@@ -208,6 +208,7 @@ export type WardWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"Ward"> | string | null
   lga?: Prisma.XOR<Prisma.LgaScalarRelationFilter, Prisma.LgaWhereInput>
   pollingUnits?: Prisma.PollingUnitListRelationFilter
+  incidents?: Prisma.IncidentListRelationFilter
 }
 
 export type WardOrderByWithRelationInput = {
@@ -221,6 +222,7 @@ export type WardOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   lga?: Prisma.LgaOrderByWithRelationInput
   pollingUnits?: Prisma.PollingUnitOrderByRelationAggregateInput
+  incidents?: Prisma.IncidentOrderByRelationAggregateInput
 }
 
 export type WardWhereUniqueInput = Prisma.AtLeast<{
@@ -238,6 +240,7 @@ export type WardWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.StringNullableFilter<"Ward"> | string | null
   lga?: Prisma.XOR<Prisma.LgaScalarRelationFilter, Prisma.LgaWhereInput>
   pollingUnits?: Prisma.PollingUnitListRelationFilter
+  incidents?: Prisma.IncidentListRelationFilter
 }, "id" | "name_lgaId">
 
 export type WardOrderByWithAggregationInput = {
@@ -278,6 +281,7 @@ export type WardCreateInput = {
   updatedBy?: string | null
   lga: Prisma.LgaCreateNestedOneWithoutWardsInput
   pollingUnits?: Prisma.PollingUnitCreateNestedManyWithoutWardInput
+  incidents?: Prisma.IncidentCreateNestedManyWithoutWardInput
 }
 
 export type WardUncheckedCreateInput = {
@@ -290,6 +294,7 @@ export type WardUncheckedCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   pollingUnits?: Prisma.PollingUnitUncheckedCreateNestedManyWithoutWardInput
+  incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutWardInput
 }
 
 export type WardUpdateInput = {
@@ -302,6 +307,7 @@ export type WardUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lga?: Prisma.LgaUpdateOneRequiredWithoutWardsNestedInput
   pollingUnits?: Prisma.PollingUnitUpdateManyWithoutWardNestedInput
+  incidents?: Prisma.IncidentUpdateManyWithoutWardNestedInput
 }
 
 export type WardUncheckedUpdateInput = {
@@ -314,6 +320,7 @@ export type WardUncheckedUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pollingUnits?: Prisma.PollingUnitUncheckedUpdateManyWithoutWardNestedInput
+  incidents?: Prisma.IncidentUncheckedUpdateManyWithoutWardNestedInput
 }
 
 export type WardCreateManyInput = {
@@ -401,6 +408,11 @@ export type WardScalarRelationFilter = {
   isNot?: Prisma.WardWhereInput
 }
 
+export type WardNullableScalarRelationFilter = {
+  is?: Prisma.WardWhereInput | null
+  isNot?: Prisma.WardWhereInput | null
+}
+
 export type WardCreateNestedManyWithoutLgaInput = {
   create?: Prisma.XOR<Prisma.WardCreateWithoutLgaInput, Prisma.WardUncheckedCreateWithoutLgaInput> | Prisma.WardCreateWithoutLgaInput[] | Prisma.WardUncheckedCreateWithoutLgaInput[]
   connectOrCreate?: Prisma.WardCreateOrConnectWithoutLgaInput | Prisma.WardCreateOrConnectWithoutLgaInput[]
@@ -457,6 +469,22 @@ export type WardUpdateOneRequiredWithoutPollingUnitsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WardUpdateToOneWithWhereWithoutPollingUnitsInput, Prisma.WardUpdateWithoutPollingUnitsInput>, Prisma.WardUncheckedUpdateWithoutPollingUnitsInput>
 }
 
+export type WardCreateNestedOneWithoutIncidentsInput = {
+  create?: Prisma.XOR<Prisma.WardCreateWithoutIncidentsInput, Prisma.WardUncheckedCreateWithoutIncidentsInput>
+  connectOrCreate?: Prisma.WardCreateOrConnectWithoutIncidentsInput
+  connect?: Prisma.WardWhereUniqueInput
+}
+
+export type WardUpdateOneWithoutIncidentsNestedInput = {
+  create?: Prisma.XOR<Prisma.WardCreateWithoutIncidentsInput, Prisma.WardUncheckedCreateWithoutIncidentsInput>
+  connectOrCreate?: Prisma.WardCreateOrConnectWithoutIncidentsInput
+  upsert?: Prisma.WardUpsertWithoutIncidentsInput
+  disconnect?: Prisma.WardWhereInput | boolean
+  delete?: Prisma.WardWhereInput | boolean
+  connect?: Prisma.WardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WardUpdateToOneWithWhereWithoutIncidentsInput, Prisma.WardUpdateWithoutIncidentsInput>, Prisma.WardUncheckedUpdateWithoutIncidentsInput>
+}
+
 export type WardCreateWithoutLgaInput = {
   id?: string
   name: string
@@ -466,6 +494,7 @@ export type WardCreateWithoutLgaInput = {
   createdBy?: string | null
   updatedBy?: string | null
   pollingUnits?: Prisma.PollingUnitCreateNestedManyWithoutWardInput
+  incidents?: Prisma.IncidentCreateNestedManyWithoutWardInput
 }
 
 export type WardUncheckedCreateWithoutLgaInput = {
@@ -477,6 +506,7 @@ export type WardUncheckedCreateWithoutLgaInput = {
   createdBy?: string | null
   updatedBy?: string | null
   pollingUnits?: Prisma.PollingUnitUncheckedCreateNestedManyWithoutWardInput
+  incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutWardInput
 }
 
 export type WardCreateOrConnectWithoutLgaInput = {
@@ -528,6 +558,7 @@ export type WardCreateWithoutPollingUnitsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   lga: Prisma.LgaCreateNestedOneWithoutWardsInput
+  incidents?: Prisma.IncidentCreateNestedManyWithoutWardInput
 }
 
 export type WardUncheckedCreateWithoutPollingUnitsInput = {
@@ -539,6 +570,7 @@ export type WardUncheckedCreateWithoutPollingUnitsInput = {
   deletedAt?: Date | string | null
   createdBy?: string | null
   updatedBy?: string | null
+  incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutWardInput
 }
 
 export type WardCreateOrConnectWithoutPollingUnitsInput = {
@@ -566,6 +598,7 @@ export type WardUpdateWithoutPollingUnitsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lga?: Prisma.LgaUpdateOneRequiredWithoutWardsNestedInput
+  incidents?: Prisma.IncidentUpdateManyWithoutWardNestedInput
 }
 
 export type WardUncheckedUpdateWithoutPollingUnitsInput = {
@@ -577,6 +610,71 @@ export type WardUncheckedUpdateWithoutPollingUnitsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  incidents?: Prisma.IncidentUncheckedUpdateManyWithoutWardNestedInput
+}
+
+export type WardCreateWithoutIncidentsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  updatedBy?: string | null
+  lga: Prisma.LgaCreateNestedOneWithoutWardsInput
+  pollingUnits?: Prisma.PollingUnitCreateNestedManyWithoutWardInput
+}
+
+export type WardUncheckedCreateWithoutIncidentsInput = {
+  id?: string
+  name: string
+  lgaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  updatedBy?: string | null
+  pollingUnits?: Prisma.PollingUnitUncheckedCreateNestedManyWithoutWardInput
+}
+
+export type WardCreateOrConnectWithoutIncidentsInput = {
+  where: Prisma.WardWhereUniqueInput
+  create: Prisma.XOR<Prisma.WardCreateWithoutIncidentsInput, Prisma.WardUncheckedCreateWithoutIncidentsInput>
+}
+
+export type WardUpsertWithoutIncidentsInput = {
+  update: Prisma.XOR<Prisma.WardUpdateWithoutIncidentsInput, Prisma.WardUncheckedUpdateWithoutIncidentsInput>
+  create: Prisma.XOR<Prisma.WardCreateWithoutIncidentsInput, Prisma.WardUncheckedCreateWithoutIncidentsInput>
+  where?: Prisma.WardWhereInput
+}
+
+export type WardUpdateToOneWithWhereWithoutIncidentsInput = {
+  where?: Prisma.WardWhereInput
+  data: Prisma.XOR<Prisma.WardUpdateWithoutIncidentsInput, Prisma.WardUncheckedUpdateWithoutIncidentsInput>
+}
+
+export type WardUpdateWithoutIncidentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lga?: Prisma.LgaUpdateOneRequiredWithoutWardsNestedInput
+  pollingUnits?: Prisma.PollingUnitUpdateManyWithoutWardNestedInput
+}
+
+export type WardUncheckedUpdateWithoutIncidentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  lgaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnits?: Prisma.PollingUnitUncheckedUpdateManyWithoutWardNestedInput
 }
 
 export type WardCreateManyLgaInput = {
@@ -598,6 +696,7 @@ export type WardUpdateWithoutLgaInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pollingUnits?: Prisma.PollingUnitUpdateManyWithoutWardNestedInput
+  incidents?: Prisma.IncidentUpdateManyWithoutWardNestedInput
 }
 
 export type WardUncheckedUpdateWithoutLgaInput = {
@@ -609,6 +708,7 @@ export type WardUncheckedUpdateWithoutLgaInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pollingUnits?: Prisma.PollingUnitUncheckedUpdateManyWithoutWardNestedInput
+  incidents?: Prisma.IncidentUncheckedUpdateManyWithoutWardNestedInput
 }
 
 export type WardUncheckedUpdateManyWithoutLgaInput = {
@@ -628,10 +728,12 @@ export type WardUncheckedUpdateManyWithoutLgaInput = {
 
 export type WardCountOutputType = {
   pollingUnits: number
+  incidents: number
 }
 
 export type WardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pollingUnits?: boolean | WardCountOutputTypeCountPollingUnitsArgs
+  incidents?: boolean | WardCountOutputTypeCountIncidentsArgs
 }
 
 /**
@@ -651,6 +753,13 @@ export type WardCountOutputTypeCountPollingUnitsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.PollingUnitWhereInput
 }
 
+/**
+ * WardCountOutputType without action
+ */
+export type WardCountOutputTypeCountIncidentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IncidentWhereInput
+}
+
 
 export type WardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -663,6 +772,7 @@ export type WardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedBy?: boolean
   lga?: boolean | Prisma.LgaDefaultArgs<ExtArgs>
   pollingUnits?: boolean | Prisma.Ward$pollingUnitsArgs<ExtArgs>
+  incidents?: boolean | Prisma.Ward$incidentsArgs<ExtArgs>
   _count?: boolean | Prisma.WardCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ward"]>
 
@@ -705,6 +815,7 @@ export type WardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type WardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lga?: boolean | Prisma.LgaDefaultArgs<ExtArgs>
   pollingUnits?: boolean | Prisma.Ward$pollingUnitsArgs<ExtArgs>
+  incidents?: boolean | Prisma.Ward$incidentsArgs<ExtArgs>
   _count?: boolean | Prisma.WardCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WardIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -719,6 +830,7 @@ export type $WardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     lga: Prisma.$LgaPayload<ExtArgs>
     pollingUnits: Prisma.$PollingUnitPayload<ExtArgs>[]
+    incidents: Prisma.$IncidentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1125,6 +1237,7 @@ export interface Prisma__WardClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   lga<T extends Prisma.LgaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LgaDefaultArgs<ExtArgs>>): Prisma.Prisma__LgaClient<runtime.Types.Result.GetResult<Prisma.$LgaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   pollingUnits<T extends Prisma.Ward$pollingUnitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ward$pollingUnitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollingUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  incidents<T extends Prisma.Ward$incidentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ward$incidentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1584,6 +1697,30 @@ export type Ward$pollingUnitsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.PollingUnitScalarFieldEnum | Prisma.PollingUnitScalarFieldEnum[]
+}
+
+/**
+ * Ward.incidents
+ */
+export type Ward$incidentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Incident
+   */
+  select?: Prisma.IncidentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Incident
+   */
+  omit?: Prisma.IncidentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IncidentInclude<ExtArgs> | null
+  where?: Prisma.IncidentWhereInput
+  orderBy?: Prisma.IncidentOrderByWithRelationInput | Prisma.IncidentOrderByWithRelationInput[]
+  cursor?: Prisma.IncidentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IncidentScalarFieldEnum | Prisma.IncidentScalarFieldEnum[]
 }
 
 /**

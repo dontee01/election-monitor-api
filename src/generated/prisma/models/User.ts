@@ -20,8 +20,22 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  reportCount: number | null
+  verifiedCount: number | null
+  trustScore: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  reportCount: number | null
+  verifiedCount: number | null
+  trustScore: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -31,6 +45,9 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   refreshToken: string | null
+  reportCount: number | null
+  verifiedCount: number | null
+  trustScore: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -43,6 +60,9 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   refreshToken: string | null
+  reportCount: number | null
+  verifiedCount: number | null
+  trustScore: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -55,12 +75,27 @@ export type UserCountAggregateOutputType = {
   password: number
   role: number
   refreshToken: number
+  reportCount: number
+  verifiedCount: number
+  trustScore: number
   createdAt: number
   updatedAt: number
   deletedAt: number
   _all: number
 }
 
+
+export type UserAvgAggregateInputType = {
+  reportCount?: true
+  verifiedCount?: true
+  trustScore?: true
+}
+
+export type UserSumAggregateInputType = {
+  reportCount?: true
+  verifiedCount?: true
+  trustScore?: true
+}
 
 export type UserMinAggregateInputType = {
   id?: true
@@ -69,6 +104,9 @@ export type UserMinAggregateInputType = {
   password?: true
   role?: true
   refreshToken?: true
+  reportCount?: true
+  verifiedCount?: true
+  trustScore?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -81,6 +119,9 @@ export type UserMaxAggregateInputType = {
   password?: true
   role?: true
   refreshToken?: true
+  reportCount?: true
+  verifiedCount?: true
+  trustScore?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -93,6 +134,9 @@ export type UserCountAggregateInputType = {
   password?: true
   role?: true
   refreshToken?: true
+  reportCount?: true
+  verifiedCount?: true
+  trustScore?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -137,6 +181,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -167,6 +223,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -178,10 +236,15 @@ export type UserGroupByOutputType = {
   password: string
   role: $Enums.Role
   refreshToken: string | null
+  reportCount: number
+  verifiedCount: number
+  trustScore: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -211,12 +274,16 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  reportCount?: Prisma.IntFilter<"User"> | number
+  verifiedCount?: Prisma.IntFilter<"User"> | number
+  trustScore?: Prisma.FloatFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reportedIncidents?: Prisma.IncidentListRelationFilter
   verifiedIncidents?: Prisma.IncidentListRelationFilter
   uploadedMedia?: Prisma.MediaListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -226,12 +293,16 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reportedIncidents?: Prisma.IncidentOrderByRelationAggregateInput
   verifiedIncidents?: Prisma.IncidentOrderByRelationAggregateInput
   uploadedMedia?: Prisma.MediaOrderByRelationAggregateInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -244,12 +315,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  reportCount?: Prisma.IntFilter<"User"> | number
+  verifiedCount?: Prisma.IntFilter<"User"> | number
+  trustScore?: Prisma.FloatFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reportedIncidents?: Prisma.IncidentListRelationFilter
   verifiedIncidents?: Prisma.IncidentListRelationFilter
   uploadedMedia?: Prisma.MediaListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -259,12 +334,17 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -277,6 +357,9 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  reportCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  verifiedCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  trustScore?: Prisma.FloatWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -289,12 +372,16 @@ export type UserCreateInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentCreateNestedManyWithoutReporterInput
   verifiedIncidents?: Prisma.IncidentCreateNestedManyWithoutVerifierInput
   uploadedMedia?: Prisma.MediaCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -304,12 +391,16 @@ export type UserUncheckedCreateInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutReporterInput
   verifiedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutVerifierInput
   uploadedMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserUpdateInput = {
@@ -319,12 +410,16 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUpdateManyWithoutReporterNestedInput
   verifiedIncidents?: Prisma.IncidentUpdateManyWithoutVerifierNestedInput
   uploadedMedia?: Prisma.MediaUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -334,12 +429,16 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutReporterNestedInput
   verifiedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutVerifierNestedInput
   uploadedMedia?: Prisma.MediaUncheckedUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -349,6 +448,9 @@ export type UserCreateManyInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -361,6 +463,9 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -373,6 +478,9 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -385,9 +493,18 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -397,6 +514,9 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -409,9 +529,18 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  reportCount?: Prisma.SortOrder
+  verifiedCount?: Prisma.SortOrder
+  trustScore?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -436,12 +565,42 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type UserCreateNestedOneWithoutResultSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResultSubmissionsInput, Prisma.UserUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResultSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutResultSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResultSubmissionsInput, Prisma.UserUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResultSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutResultSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResultSubmissionsInput, Prisma.UserUpdateWithoutResultSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutResultSubmissionsInput>
 }
 
 export type UserCreateNestedOneWithoutReportedIncidentsInput = {
@@ -488,6 +647,94 @@ export type UserUpdateOneRequiredWithoutUploadedMediaNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedMediaInput, Prisma.UserUpdateWithoutUploadedMediaInput>, Prisma.UserUncheckedUpdateWithoutUploadedMediaInput>
 }
 
+export type UserCreateWithoutResultSubmissionsInput = {
+  id?: string
+  fullName: string
+  email: string
+  password: string
+  role?: $Enums.Role
+  refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  reportedIncidents?: Prisma.IncidentCreateNestedManyWithoutReporterInput
+  verifiedIncidents?: Prisma.IncidentCreateNestedManyWithoutVerifierInput
+  uploadedMedia?: Prisma.MediaCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutResultSubmissionsInput = {
+  id?: string
+  fullName: string
+  email: string
+  password: string
+  role?: $Enums.Role
+  refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  reportedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutReporterInput
+  verifiedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutVerifierInput
+  uploadedMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutResultSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutResultSubmissionsInput, Prisma.UserUncheckedCreateWithoutResultSubmissionsInput>
+}
+
+export type UserUpsertWithoutResultSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutResultSubmissionsInput, Prisma.UserUncheckedUpdateWithoutResultSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutResultSubmissionsInput, Prisma.UserUncheckedCreateWithoutResultSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutResultSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutResultSubmissionsInput, Prisma.UserUncheckedUpdateWithoutResultSubmissionsInput>
+}
+
+export type UserUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportedIncidents?: Prisma.IncidentUpdateManyWithoutReporterNestedInput
+  verifiedIncidents?: Prisma.IncidentUpdateManyWithoutVerifierNestedInput
+  uploadedMedia?: Prisma.MediaUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutVerifierNestedInput
+  uploadedMedia?: Prisma.MediaUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
 export type UserCreateWithoutReportedIncidentsInput = {
   id?: string
   fullName: string
@@ -495,11 +742,15 @@ export type UserCreateWithoutReportedIncidentsInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   verifiedIncidents?: Prisma.IncidentCreateNestedManyWithoutVerifierInput
   uploadedMedia?: Prisma.MediaCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -509,11 +760,15 @@ export type UserUncheckedCreateWithoutReportedIncidentsInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   verifiedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutVerifierInput
   uploadedMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -528,11 +783,15 @@ export type UserCreateWithoutVerifiedIncidentsInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentCreateNestedManyWithoutReporterInput
   uploadedMedia?: Prisma.MediaCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserUncheckedCreateWithoutVerifiedIncidentsInput = {
@@ -542,11 +801,15 @@ export type UserUncheckedCreateWithoutVerifiedIncidentsInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutReporterInput
   uploadedMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutUploadedByInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserCreateOrConnectWithoutVerifiedIncidentsInput = {
@@ -572,11 +835,15 @@ export type UserUpdateWithoutReportedIncidentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedIncidents?: Prisma.IncidentUpdateManyWithoutVerifierNestedInput
   uploadedMedia?: Prisma.MediaUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -586,11 +853,15 @@ export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutVerifierNestedInput
   uploadedMedia?: Prisma.MediaUncheckedUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserUpsertWithoutVerifiedIncidentsInput = {
@@ -611,11 +882,15 @@ export type UserUpdateWithoutVerifiedIncidentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUpdateManyWithoutReporterNestedInput
   uploadedMedia?: Prisma.MediaUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerifiedIncidentsInput = {
@@ -625,11 +900,15 @@ export type UserUncheckedUpdateWithoutVerifiedIncidentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutReporterNestedInput
   uploadedMedia?: Prisma.MediaUncheckedUpdateManyWithoutUploadedByNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserCreateWithoutUploadedMediaInput = {
@@ -639,11 +918,15 @@ export type UserCreateWithoutUploadedMediaInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentCreateNestedManyWithoutReporterInput
   verifiedIncidents?: Prisma.IncidentCreateNestedManyWithoutVerifierInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserUncheckedCreateWithoutUploadedMediaInput = {
@@ -653,11 +936,15 @@ export type UserUncheckedCreateWithoutUploadedMediaInput = {
   password: string
   role?: $Enums.Role
   refreshToken?: string | null
+  reportCount?: number
+  verifiedCount?: number
+  trustScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutReporterInput
   verifiedIncidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutVerifierInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutSubmitterInput
 }
 
 export type UserCreateOrConnectWithoutUploadedMediaInput = {
@@ -683,11 +970,15 @@ export type UserUpdateWithoutUploadedMediaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUpdateManyWithoutReporterNestedInput
   verifiedIncidents?: Prisma.IncidentUpdateManyWithoutVerifierNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutSubmitterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedMediaInput = {
@@ -697,11 +988,15 @@ export type UserUncheckedUpdateWithoutUploadedMediaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutReporterNestedInput
   verifiedIncidents?: Prisma.IncidentUncheckedUpdateManyWithoutVerifierNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutSubmitterNestedInput
 }
 
 
@@ -713,12 +1008,14 @@ export type UserCountOutputType = {
   reportedIncidents: number
   verifiedIncidents: number
   uploadedMedia: number
+  resultSubmissions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reportedIncidents?: boolean | UserCountOutputTypeCountReportedIncidentsArgs
   verifiedIncidents?: boolean | UserCountOutputTypeCountVerifiedIncidentsArgs
   uploadedMedia?: boolean | UserCountOutputTypeCountUploadedMediaArgs
+  resultSubmissions?: boolean | UserCountOutputTypeCountResultSubmissionsArgs
 }
 
 /**
@@ -752,6 +1049,13 @@ export type UserCountOutputTypeCountUploadedMediaArgs<ExtArgs extends runtime.Ty
   where?: Prisma.MediaWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountResultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectionResultSubmissionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -760,12 +1064,16 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   role?: boolean
   refreshToken?: boolean
+  reportCount?: boolean
+  verifiedCount?: boolean
+  trustScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   reportedIncidents?: boolean | Prisma.User$reportedIncidentsArgs<ExtArgs>
   verifiedIncidents?: boolean | Prisma.User$verifiedIncidentsArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.User$resultSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -776,6 +1084,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   refreshToken?: boolean
+  reportCount?: boolean
+  verifiedCount?: boolean
+  trustScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -788,6 +1099,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   refreshToken?: boolean
+  reportCount?: boolean
+  verifiedCount?: boolean
+  trustScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -800,16 +1114,20 @@ export type UserSelectScalar = {
   password?: boolean
   role?: boolean
   refreshToken?: boolean
+  reportCount?: boolean
+  verifiedCount?: boolean
+  trustScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "email" | "password" | "role" | "refreshToken" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "email" | "password" | "role" | "refreshToken" | "reportCount" | "verifiedCount" | "trustScore" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reportedIncidents?: boolean | Prisma.User$reportedIncidentsArgs<ExtArgs>
   verifiedIncidents?: boolean | Prisma.User$verifiedIncidentsArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.User$resultSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -821,6 +1139,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reportedIncidents: Prisma.$IncidentPayload<ExtArgs>[]
     verifiedIncidents: Prisma.$IncidentPayload<ExtArgs>[]
     uploadedMedia: Prisma.$MediaPayload<ExtArgs>[]
+    resultSubmissions: Prisma.$ElectionResultSubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -829,6 +1148,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     role: $Enums.Role
     refreshToken: string | null
+    reportCount: number
+    verifiedCount: number
+    trustScore: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1229,6 +1551,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reportedIncidents<T extends Prisma.User$reportedIncidentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportedIncidentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   verifiedIncidents<T extends Prisma.User$verifiedIncidentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verifiedIncidentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedMedia<T extends Prisma.User$uploadedMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedMediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resultSubmissions<T extends Prisma.User$resultSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resultSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectionResultSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1264,6 +1587,9 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly reportCount: Prisma.FieldRef<"User", 'Int'>
+  readonly verifiedCount: Prisma.FieldRef<"User", 'Int'>
+  readonly trustScore: Prisma.FieldRef<"User", 'Float'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -1729,6 +2055,30 @@ export type User$uploadedMediaArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.MediaScalarFieldEnum | Prisma.MediaScalarFieldEnum[]
+}
+
+/**
+ * User.resultSubmissions
+ */
+export type User$resultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectionResultSubmission
+   */
+  select?: Prisma.ElectionResultSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectionResultSubmission
+   */
+  omit?: Prisma.ElectionResultSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectionResultSubmissionInclude<ExtArgs> | null
+  where?: Prisma.ElectionResultSubmissionWhereInput
+  orderBy?: Prisma.ElectionResultSubmissionOrderByWithRelationInput | Prisma.ElectionResultSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.ElectionResultSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectionResultSubmissionScalarFieldEnum | Prisma.ElectionResultSubmissionScalarFieldEnum[]
 }
 
 /**

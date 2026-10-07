@@ -215,6 +215,7 @@ export type ElectionWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Election"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Election"> | Date | string
   incidents?: Prisma.IncidentListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
   results?: Prisma.ElectionResultListRelationFilter
 }
 
@@ -229,6 +230,7 @@ export type ElectionOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   incidents?: Prisma.IncidentOrderByRelationAggregateInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionOrderByRelationAggregateInput
   results?: Prisma.ElectionResultOrderByRelationAggregateInput
 }
 
@@ -246,6 +248,7 @@ export type ElectionWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Election"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Election"> | Date | string
   incidents?: Prisma.IncidentListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
   results?: Prisma.ElectionResultListRelationFilter
 }, "id" | "reference">
 
@@ -290,6 +293,7 @@ export type ElectionCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   incidents?: Prisma.IncidentCreateNestedManyWithoutElectionInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutElectionInput
   results?: Prisma.ElectionResultCreateNestedManyWithoutElectionInput
 }
 
@@ -304,6 +308,7 @@ export type ElectionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutElectionInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutElectionInput
   results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutElectionInput
 }
 
@@ -318,6 +323,7 @@ export type ElectionUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   incidents?: Prisma.IncidentUpdateManyWithoutElectionNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutElectionNestedInput
   results?: Prisma.ElectionResultUpdateManyWithoutElectionNestedInput
 }
 
@@ -332,6 +338,7 @@ export type ElectionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   incidents?: Prisma.IncidentUncheckedUpdateManyWithoutElectionNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutElectionNestedInput
   results?: Prisma.ElectionResultUncheckedUpdateManyWithoutElectionNestedInput
 }
 
@@ -412,8 +419,27 @@ export type ElectionScalarRelationFilter = {
   isNot?: Prisma.ElectionWhereInput
 }
 
+export type ElectionNullableScalarRelationFilter = {
+  is?: Prisma.ElectionWhereInput | null
+  isNot?: Prisma.ElectionWhereInput | null
+}
+
 export type EnumElectionTypeFieldUpdateOperationsInput = {
   set?: $Enums.ElectionType
+}
+
+export type ElectionCreateNestedOneWithoutResultSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.ElectionCreateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.ElectionCreateOrConnectWithoutResultSubmissionsInput
+  connect?: Prisma.ElectionWhereUniqueInput
+}
+
+export type ElectionUpdateOneRequiredWithoutResultSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ElectionCreateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.ElectionCreateOrConnectWithoutResultSubmissionsInput
+  upsert?: Prisma.ElectionUpsertWithoutResultSubmissionsInput
+  connect?: Prisma.ElectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ElectionUpdateToOneWithWhereWithoutResultSubmissionsInput, Prisma.ElectionUpdateWithoutResultSubmissionsInput>, Prisma.ElectionUncheckedUpdateWithoutResultSubmissionsInput>
 }
 
 export type ElectionCreateNestedOneWithoutResultsInput = {
@@ -436,12 +462,86 @@ export type ElectionCreateNestedOneWithoutIncidentsInput = {
   connect?: Prisma.ElectionWhereUniqueInput
 }
 
-export type ElectionUpdateOneRequiredWithoutIncidentsNestedInput = {
+export type ElectionUpdateOneWithoutIncidentsNestedInput = {
   create?: Prisma.XOR<Prisma.ElectionCreateWithoutIncidentsInput, Prisma.ElectionUncheckedCreateWithoutIncidentsInput>
   connectOrCreate?: Prisma.ElectionCreateOrConnectWithoutIncidentsInput
   upsert?: Prisma.ElectionUpsertWithoutIncidentsInput
+  disconnect?: Prisma.ElectionWhereInput | boolean
+  delete?: Prisma.ElectionWhereInput | boolean
   connect?: Prisma.ElectionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ElectionUpdateToOneWithWhereWithoutIncidentsInput, Prisma.ElectionUpdateWithoutIncidentsInput>, Prisma.ElectionUncheckedUpdateWithoutIncidentsInput>
+}
+
+export type ElectionCreateWithoutResultSubmissionsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type: $Enums.ElectionType
+  electionDate: Date | string
+  reference: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  incidents?: Prisma.IncidentCreateNestedManyWithoutElectionInput
+  results?: Prisma.ElectionResultCreateNestedManyWithoutElectionInput
+}
+
+export type ElectionUncheckedCreateWithoutResultSubmissionsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type: $Enums.ElectionType
+  electionDate: Date | string
+  reference: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutElectionInput
+  results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutElectionInput
+}
+
+export type ElectionCreateOrConnectWithoutResultSubmissionsInput = {
+  where: Prisma.ElectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ElectionCreateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedCreateWithoutResultSubmissionsInput>
+}
+
+export type ElectionUpsertWithoutResultSubmissionsInput = {
+  update: Prisma.XOR<Prisma.ElectionUpdateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedUpdateWithoutResultSubmissionsInput>
+  create: Prisma.XOR<Prisma.ElectionCreateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedCreateWithoutResultSubmissionsInput>
+  where?: Prisma.ElectionWhereInput
+}
+
+export type ElectionUpdateToOneWithWhereWithoutResultSubmissionsInput = {
+  where?: Prisma.ElectionWhereInput
+  data: Prisma.XOR<Prisma.ElectionUpdateWithoutResultSubmissionsInput, Prisma.ElectionUncheckedUpdateWithoutResultSubmissionsInput>
+}
+
+export type ElectionUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumElectionTypeFieldUpdateOperationsInput | $Enums.ElectionType
+  electionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  incidents?: Prisma.IncidentUpdateManyWithoutElectionNestedInput
+  results?: Prisma.ElectionResultUpdateManyWithoutElectionNestedInput
+}
+
+export type ElectionUncheckedUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumElectionTypeFieldUpdateOperationsInput | $Enums.ElectionType
+  electionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  incidents?: Prisma.IncidentUncheckedUpdateManyWithoutElectionNestedInput
+  results?: Prisma.ElectionResultUncheckedUpdateManyWithoutElectionNestedInput
 }
 
 export type ElectionCreateWithoutResultsInput = {
@@ -455,6 +555,7 @@ export type ElectionCreateWithoutResultsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   incidents?: Prisma.IncidentCreateNestedManyWithoutElectionInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutElectionInput
 }
 
 export type ElectionUncheckedCreateWithoutResultsInput = {
@@ -468,6 +569,7 @@ export type ElectionUncheckedCreateWithoutResultsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutElectionInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutElectionInput
 }
 
 export type ElectionCreateOrConnectWithoutResultsInput = {
@@ -497,6 +599,7 @@ export type ElectionUpdateWithoutResultsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   incidents?: Prisma.IncidentUpdateManyWithoutElectionNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutElectionNestedInput
 }
 
 export type ElectionUncheckedUpdateWithoutResultsInput = {
@@ -510,6 +613,7 @@ export type ElectionUncheckedUpdateWithoutResultsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   incidents?: Prisma.IncidentUncheckedUpdateManyWithoutElectionNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutElectionNestedInput
 }
 
 export type ElectionCreateWithoutIncidentsInput = {
@@ -522,6 +626,7 @@ export type ElectionCreateWithoutIncidentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutElectionInput
   results?: Prisma.ElectionResultCreateNestedManyWithoutElectionInput
 }
 
@@ -535,6 +640,7 @@ export type ElectionUncheckedCreateWithoutIncidentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutElectionInput
   results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutElectionInput
 }
 
@@ -564,6 +670,7 @@ export type ElectionUpdateWithoutIncidentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutElectionNestedInput
   results?: Prisma.ElectionResultUpdateManyWithoutElectionNestedInput
 }
 
@@ -577,6 +684,7 @@ export type ElectionUncheckedUpdateWithoutIncidentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutElectionNestedInput
   results?: Prisma.ElectionResultUncheckedUpdateManyWithoutElectionNestedInput
 }
 
@@ -587,11 +695,13 @@ export type ElectionUncheckedUpdateWithoutIncidentsInput = {
 
 export type ElectionCountOutputType = {
   incidents: number
+  resultSubmissions: number
   results: number
 }
 
 export type ElectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   incidents?: boolean | ElectionCountOutputTypeCountIncidentsArgs
+  resultSubmissions?: boolean | ElectionCountOutputTypeCountResultSubmissionsArgs
   results?: boolean | ElectionCountOutputTypeCountResultsArgs
 }
 
@@ -615,6 +725,13 @@ export type ElectionCountOutputTypeCountIncidentsArgs<ExtArgs extends runtime.Ty
 /**
  * ElectionCountOutputType without action
  */
+export type ElectionCountOutputTypeCountResultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectionResultSubmissionWhereInput
+}
+
+/**
+ * ElectionCountOutputType without action
+ */
 export type ElectionCountOutputTypeCountResultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ElectionResultWhereInput
 }
@@ -631,6 +748,7 @@ export type ElectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   updatedAt?: boolean
   incidents?: boolean | Prisma.Election$incidentsArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.Election$resultSubmissionsArgs<ExtArgs>
   results?: boolean | Prisma.Election$resultsArgs<ExtArgs>
   _count?: boolean | Prisma.ElectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["election"]>
@@ -674,6 +792,7 @@ export type ElectionSelectScalar = {
 export type ElectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "type" | "electionDate" | "reference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["election"]>
 export type ElectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   incidents?: boolean | Prisma.Election$incidentsArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.Election$resultSubmissionsArgs<ExtArgs>
   results?: boolean | Prisma.Election$resultsArgs<ExtArgs>
   _count?: boolean | Prisma.ElectionCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -684,6 +803,7 @@ export type $ElectionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Election"
   objects: {
     incidents: Prisma.$IncidentPayload<ExtArgs>[]
+    resultSubmissions: Prisma.$ElectionResultSubmissionPayload<ExtArgs>[]
     results: Prisma.$ElectionResultPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1091,6 +1211,7 @@ readonly fields: ElectionFieldRefs;
 export interface Prisma__ElectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   incidents<T extends Prisma.Election$incidentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Election$incidentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resultSubmissions<T extends Prisma.Election$resultSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Election$resultSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectionResultSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   results<T extends Prisma.Election$resultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Election$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectionResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1544,6 +1665,30 @@ export type Election$incidentsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.IncidentScalarFieldEnum | Prisma.IncidentScalarFieldEnum[]
+}
+
+/**
+ * Election.resultSubmissions
+ */
+export type Election$resultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectionResultSubmission
+   */
+  select?: Prisma.ElectionResultSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectionResultSubmission
+   */
+  omit?: Prisma.ElectionResultSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectionResultSubmissionInclude<ExtArgs> | null
+  where?: Prisma.ElectionResultSubmissionWhereInput
+  orderBy?: Prisma.ElectionResultSubmissionOrderByWithRelationInput | Prisma.ElectionResultSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.ElectionResultSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectionResultSubmissionScalarFieldEnum | Prisma.ElectionResultSubmissionScalarFieldEnum[]
 }
 
 /**

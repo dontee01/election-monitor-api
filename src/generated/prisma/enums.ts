@@ -27,7 +27,22 @@ export const Visibility = {
 export type Visibility = (typeof Visibility)[keyof typeof Visibility]
 
 
+export const IncidentDomain = {
+  COMMUNITY: 'COMMUNITY',
+  ELECTION: 'ELECTION'
+} as const
+
+export type IncidentDomain = (typeof IncidentDomain)[keyof typeof IncidentDomain]
+
+
 export const IncidentCategory = {
+  THEFT: 'THEFT',
+  ROADBLOCK: 'ROADBLOCK',
+  TRAFFIC: 'TRAFFIC',
+  RTA: 'RTA',
+  FIRE: 'FIRE',
+  UTILITY_OUTAGE: 'UTILITY_OUTAGE',
+  OTHER_COMMUNITY: 'OTHER_COMMUNITY',
   LOW_TURNOUT: 'LOW_TURNOUT',
   LATE_OPENING: 'LATE_OPENING',
   EARLY_CLOSURE: 'EARLY_CLOSURE',
@@ -88,3 +103,13 @@ export const MediaType = {
 } as const
 
 export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+
+export const ResultSubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  CORROBORATED: 'CORROBORATED',
+  DISPUTED: 'DISPUTED',
+  OFFICIAL: 'OFFICIAL'
+} as const
+
+export type ResultSubmissionStatus = (typeof ResultSubmissionStatus)[keyof typeof ResultSubmissionStatus]

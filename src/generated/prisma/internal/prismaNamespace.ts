@@ -390,6 +390,7 @@ export const ModelName = {
   Ward: 'Ward',
   PollingUnit: 'PollingUnit',
   Election: 'Election',
+  ElectionResultSubmission: 'ElectionResultSubmission',
   ElectionResult: 'ElectionResult',
   Incident: 'Incident',
   Media: 'Media'
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "state" | "lga" | "ward" | "pollingUnit" | "election" | "electionResult" | "incident" | "media"
+    modelProps: "user" | "state" | "lga" | "ward" | "pollingUnit" | "election" | "electionResultSubmission" | "electionResult" | "incident" | "media"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -856,6 +857,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ElectionResultSubmission: {
+      payload: Prisma.$ElectionResultSubmissionPayload<ExtArgs>
+      fields: Prisma.ElectionResultSubmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ElectionResultSubmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ElectionResultSubmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.ElectionResultSubmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ElectionResultSubmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        findMany: {
+          args: Prisma.ElectionResultSubmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>[]
+        }
+        create: {
+          args: Prisma.ElectionResultSubmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        createMany: {
+          args: Prisma.ElectionResultSubmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ElectionResultSubmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.ElectionResultSubmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        update: {
+          args: Prisma.ElectionResultSubmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ElectionResultSubmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ElectionResultSubmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ElectionResultSubmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ElectionResultSubmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectionResultSubmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.ElectionResultSubmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateElectionResultSubmission>
+        }
+        groupBy: {
+          args: Prisma.ElectionResultSubmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectionResultSubmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ElectionResultSubmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectionResultSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
     ElectionResult: {
       payload: Prisma.$ElectionResultPayload<ExtArgs>
       fields: Prisma.ElectionResultFieldRefs
@@ -1124,6 +1199,9 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   refreshToken: 'refreshToken',
+  reportCount: 'reportCount',
+  verifiedCount: 'verifiedCount',
+  trustScore: 'trustScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -1208,6 +1286,21 @@ export const ElectionScalarFieldEnum = {
 export type ElectionScalarFieldEnum = (typeof ElectionScalarFieldEnum)[keyof typeof ElectionScalarFieldEnum]
 
 
+export const ElectionResultSubmissionScalarFieldEnum = {
+  id: 'id',
+  electionId: 'electionId',
+  pollingUnitId: 'pollingUnitId',
+  submitterId: 'submitterId',
+  tallies: 'tallies',
+  resultSheetUrl: 'resultSheetUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectionResultSubmissionScalarFieldEnum = (typeof ElectionResultSubmissionScalarFieldEnum)[keyof typeof ElectionResultSubmissionScalarFieldEnum]
+
+
 export const ElectionResultScalarFieldEnum = {
   id: 'id',
   pollingUnitId: 'pollingUnitId',
@@ -1225,6 +1318,7 @@ export type ElectionResultScalarFieldEnum = (typeof ElectionResultScalarFieldEnu
 export const IncidentScalarFieldEnum = {
   id: 'id',
   reference: 'reference',
+  domain: 'domain',
   title: 'title',
   description: 'description',
   category: 'category',
@@ -1234,8 +1328,10 @@ export const IncidentScalarFieldEnum = {
   occurredAt: 'occurredAt',
   latitude: 'latitude',
   longitude: 'longitude',
+  address: 'address',
   electionId: 'electionId',
   pollingUnitId: 'pollingUnitId',
+  wardId: 'wardId',
   reporterId: 'reporterId',
   verifierId: 'verifierId',
   createdAt: 'createdAt',
@@ -1272,6 +1368,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1286,6 +1389,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1319,6 +1431,34 @@ export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Role[]'
  */
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -1372,16 +1512,44 @@ export type ListEnumElectionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Json'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'QueryMode'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'ResultSubmissionStatus'
+ */
+export type EnumResultSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResultSubmissionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ResultSubmissionStatus[]'
+ */
+export type ListEnumResultSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResultSubmissionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'IncidentDomain'
+ */
+export type EnumIncidentDomainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IncidentDomain'>
+    
+
+
+/**
+ * Reference to a field of type 'IncidentDomain[]'
+ */
+export type ListEnumIncidentDomainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IncidentDomain[]'>
     
 
 
@@ -1452,20 +1620,6 @@ export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'MediaType[]'
  */
 export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -1584,6 +1738,7 @@ export type GlobalOmitConfig = {
   ward?: Prisma.WardOmit
   pollingUnit?: Prisma.PollingUnitOmit
   election?: Prisma.ElectionOmit
+  electionResultSubmission?: Prisma.ElectionResultSubmissionOmit
   electionResult?: Prisma.ElectionResultOmit
   incident?: Prisma.IncidentOmit
   media?: Prisma.MediaOmit

@@ -286,6 +286,7 @@ export type PollingUnitWhereInput = {
   isActive?: Prisma.BoolFilter<"PollingUnit"> | boolean
   ward?: Prisma.XOR<Prisma.WardScalarRelationFilter, Prisma.WardWhereInput>
   incidents?: Prisma.IncidentListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
   results?: Prisma.ElectionResultListRelationFilter
 }
 
@@ -305,6 +306,7 @@ export type PollingUnitOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   ward?: Prisma.WardOrderByWithRelationInput
   incidents?: Prisma.IncidentOrderByRelationAggregateInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionOrderByRelationAggregateInput
   results?: Prisma.ElectionResultOrderByRelationAggregateInput
 }
 
@@ -327,6 +329,7 @@ export type PollingUnitWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"PollingUnit"> | boolean
   ward?: Prisma.XOR<Prisma.WardScalarRelationFilter, Prisma.WardWhereInput>
   incidents?: Prisma.IncidentListRelationFilter
+  resultSubmissions?: Prisma.ElectionResultSubmissionListRelationFilter
   results?: Prisma.ElectionResultListRelationFilter
 }, "id" | "code">
 
@@ -385,6 +388,7 @@ export type PollingUnitCreateInput = {
   isActive?: boolean
   ward: Prisma.WardCreateNestedOneWithoutPollingUnitsInput
   incidents?: Prisma.IncidentCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -403,6 +407,7 @@ export type PollingUnitUncheckedCreateInput = {
   updatedBy?: string | null
   isActive?: boolean
   incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -421,6 +426,7 @@ export type PollingUnitUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ward?: Prisma.WardUpdateOneRequiredWithoutPollingUnitsNestedInput
   incidents?: Prisma.IncidentUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -439,6 +445,7 @@ export type PollingUnitUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   incidents?: Prisma.IncidentUncheckedUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUncheckedUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -562,6 +569,11 @@ export type PollingUnitScalarRelationFilter = {
   isNot?: Prisma.PollingUnitWhereInput
 }
 
+export type PollingUnitNullableScalarRelationFilter = {
+  is?: Prisma.PollingUnitWhereInput | null
+  isNot?: Prisma.PollingUnitWhereInput | null
+}
+
 export type PollingUnitCreateNestedManyWithoutWardInput = {
   create?: Prisma.XOR<Prisma.PollingUnitCreateWithoutWardInput, Prisma.PollingUnitUncheckedCreateWithoutWardInput> | Prisma.PollingUnitCreateWithoutWardInput[] | Prisma.PollingUnitUncheckedCreateWithoutWardInput[]
   connectOrCreate?: Prisma.PollingUnitCreateOrConnectWithoutWardInput | Prisma.PollingUnitCreateOrConnectWithoutWardInput[]
@@ -616,6 +628,20 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type PollingUnitCreateNestedOneWithoutResultSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.PollingUnitCreateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.PollingUnitCreateOrConnectWithoutResultSubmissionsInput
+  connect?: Prisma.PollingUnitWhereUniqueInput
+}
+
+export type PollingUnitUpdateOneRequiredWithoutResultSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PollingUnitCreateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedCreateWithoutResultSubmissionsInput>
+  connectOrCreate?: Prisma.PollingUnitCreateOrConnectWithoutResultSubmissionsInput
+  upsert?: Prisma.PollingUnitUpsertWithoutResultSubmissionsInput
+  connect?: Prisma.PollingUnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PollingUnitUpdateToOneWithWhereWithoutResultSubmissionsInput, Prisma.PollingUnitUpdateWithoutResultSubmissionsInput>, Prisma.PollingUnitUncheckedUpdateWithoutResultSubmissionsInput>
+}
+
 export type PollingUnitCreateNestedOneWithoutResultsInput = {
   create?: Prisma.XOR<Prisma.PollingUnitCreateWithoutResultsInput, Prisma.PollingUnitUncheckedCreateWithoutResultsInput>
   connectOrCreate?: Prisma.PollingUnitCreateOrConnectWithoutResultsInput
@@ -636,10 +662,12 @@ export type PollingUnitCreateNestedOneWithoutIncidentsInput = {
   connect?: Prisma.PollingUnitWhereUniqueInput
 }
 
-export type PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput = {
+export type PollingUnitUpdateOneWithoutIncidentsNestedInput = {
   create?: Prisma.XOR<Prisma.PollingUnitCreateWithoutIncidentsInput, Prisma.PollingUnitUncheckedCreateWithoutIncidentsInput>
   connectOrCreate?: Prisma.PollingUnitCreateOrConnectWithoutIncidentsInput
   upsert?: Prisma.PollingUnitUpsertWithoutIncidentsInput
+  disconnect?: Prisma.PollingUnitWhereInput | boolean
+  delete?: Prisma.PollingUnitWhereInput | boolean
   connect?: Prisma.PollingUnitWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PollingUnitUpdateToOneWithWhereWithoutIncidentsInput, Prisma.PollingUnitUpdateWithoutIncidentsInput>, Prisma.PollingUnitUncheckedUpdateWithoutIncidentsInput>
 }
@@ -658,6 +686,7 @@ export type PollingUnitCreateWithoutWardInput = {
   updatedBy?: string | null
   isActive?: boolean
   incidents?: Prisma.IncidentCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -675,6 +704,7 @@ export type PollingUnitUncheckedCreateWithoutWardInput = {
   updatedBy?: string | null
   isActive?: boolean
   incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -723,6 +753,94 @@ export type PollingUnitScalarWhereInput = {
   isActive?: Prisma.BoolFilter<"PollingUnit"> | boolean
 }
 
+export type PollingUnitCreateWithoutResultSubmissionsInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  updatedBy?: string | null
+  isActive?: boolean
+  ward: Prisma.WardCreateNestedOneWithoutPollingUnitsInput
+  incidents?: Prisma.IncidentCreateNestedManyWithoutPollingUnitInput
+  results?: Prisma.ElectionResultCreateNestedManyWithoutPollingUnitInput
+}
+
+export type PollingUnitUncheckedCreateWithoutResultSubmissionsInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  wardId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  updatedBy?: string | null
+  isActive?: boolean
+  incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutPollingUnitInput
+  results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutPollingUnitInput
+}
+
+export type PollingUnitCreateOrConnectWithoutResultSubmissionsInput = {
+  where: Prisma.PollingUnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.PollingUnitCreateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedCreateWithoutResultSubmissionsInput>
+}
+
+export type PollingUnitUpsertWithoutResultSubmissionsInput = {
+  update: Prisma.XOR<Prisma.PollingUnitUpdateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedUpdateWithoutResultSubmissionsInput>
+  create: Prisma.XOR<Prisma.PollingUnitCreateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedCreateWithoutResultSubmissionsInput>
+  where?: Prisma.PollingUnitWhereInput
+}
+
+export type PollingUnitUpdateToOneWithWhereWithoutResultSubmissionsInput = {
+  where?: Prisma.PollingUnitWhereInput
+  data: Prisma.XOR<Prisma.PollingUnitUpdateWithoutResultSubmissionsInput, Prisma.PollingUnitUncheckedUpdateWithoutResultSubmissionsInput>
+}
+
+export type PollingUnitUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ward?: Prisma.WardUpdateOneRequiredWithoutPollingUnitsNestedInput
+  incidents?: Prisma.IncidentUpdateManyWithoutPollingUnitNestedInput
+  results?: Prisma.ElectionResultUpdateManyWithoutPollingUnitNestedInput
+}
+
+export type PollingUnitUncheckedUpdateWithoutResultSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  wardId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  incidents?: Prisma.IncidentUncheckedUpdateManyWithoutPollingUnitNestedInput
+  results?: Prisma.ElectionResultUncheckedUpdateManyWithoutPollingUnitNestedInput
+}
+
 export type PollingUnitCreateWithoutResultsInput = {
   id?: string
   code: string
@@ -738,6 +856,7 @@ export type PollingUnitCreateWithoutResultsInput = {
   isActive?: boolean
   ward: Prisma.WardCreateNestedOneWithoutPollingUnitsInput
   incidents?: Prisma.IncidentCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutPollingUnitInput
 }
 
 export type PollingUnitUncheckedCreateWithoutResultsInput = {
@@ -755,6 +874,7 @@ export type PollingUnitUncheckedCreateWithoutResultsInput = {
   updatedBy?: string | null
   isActive?: boolean
   incidents?: Prisma.IncidentUncheckedCreateNestedManyWithoutPollingUnitInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutPollingUnitInput
 }
 
 export type PollingUnitCreateOrConnectWithoutResultsInput = {
@@ -788,6 +908,7 @@ export type PollingUnitUpdateWithoutResultsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ward?: Prisma.WardUpdateOneRequiredWithoutPollingUnitsNestedInput
   incidents?: Prisma.IncidentUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutPollingUnitNestedInput
 }
 
 export type PollingUnitUncheckedUpdateWithoutResultsInput = {
@@ -805,6 +926,7 @@ export type PollingUnitUncheckedUpdateWithoutResultsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   incidents?: Prisma.IncidentUncheckedUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutPollingUnitNestedInput
 }
 
 export type PollingUnitCreateWithoutIncidentsInput = {
@@ -821,6 +943,7 @@ export type PollingUnitCreateWithoutIncidentsInput = {
   updatedBy?: string | null
   isActive?: boolean
   ward: Prisma.WardCreateNestedOneWithoutPollingUnitsInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -838,6 +961,7 @@ export type PollingUnitUncheckedCreateWithoutIncidentsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isActive?: boolean
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedCreateNestedManyWithoutPollingUnitInput
   results?: Prisma.ElectionResultUncheckedCreateNestedManyWithoutPollingUnitInput
 }
 
@@ -871,6 +995,7 @@ export type PollingUnitUpdateWithoutIncidentsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ward?: Prisma.WardUpdateOneRequiredWithoutPollingUnitsNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -888,6 +1013,7 @@ export type PollingUnitUncheckedUpdateWithoutIncidentsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUncheckedUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -920,6 +1046,7 @@ export type PollingUnitUpdateWithoutWardInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   incidents?: Prisma.IncidentUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -937,6 +1064,7 @@ export type PollingUnitUncheckedUpdateWithoutWardInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   incidents?: Prisma.IncidentUncheckedUpdateManyWithoutPollingUnitNestedInput
+  resultSubmissions?: Prisma.ElectionResultSubmissionUncheckedUpdateManyWithoutPollingUnitNestedInput
   results?: Prisma.ElectionResultUncheckedUpdateManyWithoutPollingUnitNestedInput
 }
 
@@ -962,11 +1090,13 @@ export type PollingUnitUncheckedUpdateManyWithoutWardInput = {
 
 export type PollingUnitCountOutputType = {
   incidents: number
+  resultSubmissions: number
   results: number
 }
 
 export type PollingUnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   incidents?: boolean | PollingUnitCountOutputTypeCountIncidentsArgs
+  resultSubmissions?: boolean | PollingUnitCountOutputTypeCountResultSubmissionsArgs
   results?: boolean | PollingUnitCountOutputTypeCountResultsArgs
 }
 
@@ -985,6 +1115,13 @@ export type PollingUnitCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
  */
 export type PollingUnitCountOutputTypeCountIncidentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.IncidentWhereInput
+}
+
+/**
+ * PollingUnitCountOutputType without action
+ */
+export type PollingUnitCountOutputTypeCountResultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectionResultSubmissionWhereInput
 }
 
 /**
@@ -1011,6 +1148,7 @@ export type PollingUnitSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   isActive?: boolean
   ward?: boolean | Prisma.WardDefaultArgs<ExtArgs>
   incidents?: boolean | Prisma.PollingUnit$incidentsArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.PollingUnit$resultSubmissionsArgs<ExtArgs>
   results?: boolean | Prisma.PollingUnit$resultsArgs<ExtArgs>
   _count?: boolean | Prisma.PollingUnitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pollingUnit"]>
@@ -1069,6 +1207,7 @@ export type PollingUnitOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PollingUnitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ward?: boolean | Prisma.WardDefaultArgs<ExtArgs>
   incidents?: boolean | Prisma.PollingUnit$incidentsArgs<ExtArgs>
+  resultSubmissions?: boolean | Prisma.PollingUnit$resultSubmissionsArgs<ExtArgs>
   results?: boolean | Prisma.PollingUnit$resultsArgs<ExtArgs>
   _count?: boolean | Prisma.PollingUnitCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1084,6 +1223,7 @@ export type $PollingUnitPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     ward: Prisma.$WardPayload<ExtArgs>
     incidents: Prisma.$IncidentPayload<ExtArgs>[]
+    resultSubmissions: Prisma.$ElectionResultSubmissionPayload<ExtArgs>[]
     results: Prisma.$ElectionResultPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1496,6 +1636,7 @@ export interface Prisma__PollingUnitClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ward<T extends Prisma.WardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WardDefaultArgs<ExtArgs>>): Prisma.Prisma__WardClient<runtime.Types.Result.GetResult<Prisma.$WardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   incidents<T extends Prisma.PollingUnit$incidentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PollingUnit$incidentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resultSubmissions<T extends Prisma.PollingUnit$resultSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PollingUnit$resultSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectionResultSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   results<T extends Prisma.PollingUnit$resultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PollingUnit$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectionResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1961,6 +2102,30 @@ export type PollingUnit$incidentsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.IncidentScalarFieldEnum | Prisma.IncidentScalarFieldEnum[]
+}
+
+/**
+ * PollingUnit.resultSubmissions
+ */
+export type PollingUnit$resultSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectionResultSubmission
+   */
+  select?: Prisma.ElectionResultSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectionResultSubmission
+   */
+  omit?: Prisma.ElectionResultSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectionResultSubmissionInclude<ExtArgs> | null
+  where?: Prisma.ElectionResultSubmissionWhereInput
+  orderBy?: Prisma.ElectionResultSubmissionOrderByWithRelationInput | Prisma.ElectionResultSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.ElectionResultSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectionResultSubmissionScalarFieldEnum | Prisma.ElectionResultSubmissionScalarFieldEnum[]
 }
 
 /**

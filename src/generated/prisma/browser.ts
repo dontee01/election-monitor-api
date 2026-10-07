@@ -48,6 +48,11 @@ export type PollingUnit = Prisma.PollingUnitModel
  */
 export type Election = Prisma.ElectionModel
 /**
+ * Model ElectionResultSubmission
+ * 
+ */
+export type ElectionResultSubmission = Prisma.ElectionResultSubmissionModel
+/**
  * Model ElectionResult
  * 
  */

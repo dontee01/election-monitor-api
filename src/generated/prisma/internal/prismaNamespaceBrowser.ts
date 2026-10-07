@@ -57,6 +57,7 @@ export const ModelName = {
   Ward: 'Ward',
   PollingUnit: 'PollingUnit',
   Election: 'Election',
+  ElectionResultSubmission: 'ElectionResultSubmission',
   ElectionResult: 'ElectionResult',
   Incident: 'Incident',
   Media: 'Media'
@@ -85,6 +86,9 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   refreshToken: 'refreshToken',
+  reportCount: 'reportCount',
+  verifiedCount: 'verifiedCount',
+  trustScore: 'trustScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -169,6 +173,21 @@ export const ElectionScalarFieldEnum = {
 export type ElectionScalarFieldEnum = (typeof ElectionScalarFieldEnum)[keyof typeof ElectionScalarFieldEnum]
 
 
+export const ElectionResultSubmissionScalarFieldEnum = {
+  id: 'id',
+  electionId: 'electionId',
+  pollingUnitId: 'pollingUnitId',
+  submitterId: 'submitterId',
+  tallies: 'tallies',
+  resultSheetUrl: 'resultSheetUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectionResultSubmissionScalarFieldEnum = (typeof ElectionResultSubmissionScalarFieldEnum)[keyof typeof ElectionResultSubmissionScalarFieldEnum]
+
+
 export const ElectionResultScalarFieldEnum = {
   id: 'id',
   pollingUnitId: 'pollingUnitId',
@@ -186,6 +205,7 @@ export type ElectionResultScalarFieldEnum = (typeof ElectionResultScalarFieldEnu
 export const IncidentScalarFieldEnum = {
   id: 'id',
   reference: 'reference',
+  domain: 'domain',
   title: 'title',
   description: 'description',
   category: 'category',
@@ -195,8 +215,10 @@ export const IncidentScalarFieldEnum = {
   occurredAt: 'occurredAt',
   latitude: 'latitude',
   longitude: 'longitude',
+  address: 'address',
   electionId: 'electionId',
   pollingUnitId: 'pollingUnitId',
+  wardId: 'wardId',
   reporterId: 'reporterId',
   verifierId: 'verifierId',
   createdAt: 'createdAt',
@@ -233,6 +255,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -247,4 +276,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

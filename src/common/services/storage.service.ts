@@ -68,4 +68,19 @@ export class StorageService {
 
   }
 
+  async delete(url: string): Promise<void> {
+  const relativePath = url.replace(/^\/uploads\//, '');
+
+  const filePath = join(
+    this.basePath,
+    relativePath,
+  );
+
+  try {
+    await fs.unlink(filePath);
+  } catch {
+    // File may already have been removed.
+  }
+}
+
 }

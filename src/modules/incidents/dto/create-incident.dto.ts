@@ -1,24 +1,24 @@
-import { IsNotEmpty, IsString, IsEnum, IsInt, IsOptional, IsDate, IsNumber, Min, Max } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  ValidateIf,
+} from 'class-validator';
+
 import { Type } from 'class-transformer';
+
 import { IncidentCategory } from 'src/common/enums/incident-category.enum';
 import { IncidentSeverity } from 'src/common/enums/incident-severity.enum';
-// import { IncidentCategory } from 'generated/prisma/enums';
 
-// Optional: Define enums if Category and Severity have fixed values
-// export enum IncidentCategory {
-//   VANDALISM = 'VANDALISM',
-//   VOTE_BUYING = 'VOTE_BUYING',
-//   VIOLENCE = 'VIOLENCE',
-//   DELAY = 'DELAY',
-//   OTHER = 'OTHER',
-// }
-
-// export enum IncidentSeverity {
-//   LOW = 'LOW',
-//   MEDIUM = 'MEDIUM',
-//   HIGH = 'HIGH',
-//   CRITICAL = 'CRITICAL',
-// }
+export enum IncidentDomain {
+  COMMUNITY = 'COMMUNITY',
+  ELECTION = 'ELECTION',
+}
 
 export class CreateIncidentDto {
   @IsNotEmpty()
@@ -30,24 +30,47 @@ export class CreateIncidentDto {
   description: string;
 
   @IsNotEmpty()
-  @IsEnum(IncidentCategory) // Change to @IsString() if not using an enum
+  @IsEnum(IncidentCategory)
   category: IncidentCategory;
 
   @IsNotEmpty()
-  @IsEnum(IncidentSeverity) // Change to @IsString() if not using an enum
+  @IsEnum(IncidentSeverity)
   severity: IncidentSeverity;
 
-  @IsNotEmpty()
-  @IsString()
-  pollingUnitId: string;
+  @IsOptional()
+  @IsEnum(IncidentDomain)
+  domain?: IncidentDomain;
 
+  /**
+   * Required for election incidents.
+   */
+  @ValidateIf(
+    (o) => o.domain === IncidentDomain.ELECTION,
+  )
   @IsNotEmpty()
   @IsString()
-  electionId: string;
+  electionId?: string;
+
+  /**
+   * Optional for community incidents.
+   * Required when the election incident is associated
+   * with a polling unit.
+   */
+  @IsOptional()
+  @IsString()
+  pollingUnitId?: string;
+
+  /**
+   * Useful for community incidents where we know
+   * the ward but there is no polling unit involved.
+   */
+  @IsOptional()
+  @IsString()
+  wardId?: string;
 
   @IsOptional()
   @IsDate()
-  @Type(() => Date) // Ensures query/body strings are converted to actual Date objects
+  @Type(() => Date)
   occurredAt?: Date;
 
   @IsOptional()
@@ -61,4 +84,8 @@ export class CreateIncidentDto {
   @Min(-180)
   @Max(180)
   longitude?: number;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
 }

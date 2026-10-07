@@ -39,6 +39,7 @@ export type IncidentSumAggregateOutputType = {
 export type IncidentMinAggregateOutputType = {
   id: string | null
   reference: string | null
+  domain: $Enums.IncidentDomain | null
   title: string | null
   description: string | null
   category: $Enums.IncidentCategory | null
@@ -48,8 +49,10 @@ export type IncidentMinAggregateOutputType = {
   occurredAt: Date | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
+  address: string | null
   electionId: string | null
   pollingUnitId: string | null
+  wardId: string | null
   reporterId: string | null
   verifierId: string | null
   createdAt: Date | null
@@ -59,6 +62,7 @@ export type IncidentMinAggregateOutputType = {
 export type IncidentMaxAggregateOutputType = {
   id: string | null
   reference: string | null
+  domain: $Enums.IncidentDomain | null
   title: string | null
   description: string | null
   category: $Enums.IncidentCategory | null
@@ -68,8 +72,10 @@ export type IncidentMaxAggregateOutputType = {
   occurredAt: Date | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
+  address: string | null
   electionId: string | null
   pollingUnitId: string | null
+  wardId: string | null
   reporterId: string | null
   verifierId: string | null
   createdAt: Date | null
@@ -79,6 +85,7 @@ export type IncidentMaxAggregateOutputType = {
 export type IncidentCountAggregateOutputType = {
   id: number
   reference: number
+  domain: number
   title: number
   description: number
   category: number
@@ -88,8 +95,10 @@ export type IncidentCountAggregateOutputType = {
   occurredAt: number
   latitude: number
   longitude: number
+  address: number
   electionId: number
   pollingUnitId: number
+  wardId: number
   reporterId: number
   verifierId: number
   createdAt: number
@@ -111,6 +120,7 @@ export type IncidentSumAggregateInputType = {
 export type IncidentMinAggregateInputType = {
   id?: true
   reference?: true
+  domain?: true
   title?: true
   description?: true
   category?: true
@@ -120,8 +130,10 @@ export type IncidentMinAggregateInputType = {
   occurredAt?: true
   latitude?: true
   longitude?: true
+  address?: true
   electionId?: true
   pollingUnitId?: true
+  wardId?: true
   reporterId?: true
   verifierId?: true
   createdAt?: true
@@ -131,6 +143,7 @@ export type IncidentMinAggregateInputType = {
 export type IncidentMaxAggregateInputType = {
   id?: true
   reference?: true
+  domain?: true
   title?: true
   description?: true
   category?: true
@@ -140,8 +153,10 @@ export type IncidentMaxAggregateInputType = {
   occurredAt?: true
   latitude?: true
   longitude?: true
+  address?: true
   electionId?: true
   pollingUnitId?: true
+  wardId?: true
   reporterId?: true
   verifierId?: true
   createdAt?: true
@@ -151,6 +166,7 @@ export type IncidentMaxAggregateInputType = {
 export type IncidentCountAggregateInputType = {
   id?: true
   reference?: true
+  domain?: true
   title?: true
   description?: true
   category?: true
@@ -160,8 +176,10 @@ export type IncidentCountAggregateInputType = {
   occurredAt?: true
   latitude?: true
   longitude?: true
+  address?: true
   electionId?: true
   pollingUnitId?: true
+  wardId?: true
   reporterId?: true
   verifierId?: true
   createdAt?: true
@@ -258,6 +276,7 @@ export type IncidentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type IncidentGroupByOutputType = {
   id: string
   reference: string
+  domain: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -267,8 +286,10 @@ export type IncidentGroupByOutputType = {
   occurredAt: Date | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
-  electionId: string
-  pollingUnitId: string
+  address: string | null
+  electionId: string | null
+  pollingUnitId: string | null
+  wardId: string | null
   reporterId: string
   verifierId: string | null
   createdAt: Date
@@ -301,6 +322,7 @@ export type IncidentWhereInput = {
   NOT?: Prisma.IncidentWhereInput | Prisma.IncidentWhereInput[]
   id?: Prisma.StringFilter<"Incident"> | string
   reference?: Prisma.StringFilter<"Incident"> | string
+  domain?: Prisma.EnumIncidentDomainFilter<"Incident"> | $Enums.IncidentDomain
   title?: Prisma.StringFilter<"Incident"> | string
   description?: Prisma.StringFilter<"Incident"> | string
   category?: Prisma.EnumIncidentCategoryFilter<"Incident"> | $Enums.IncidentCategory
@@ -310,14 +332,17 @@ export type IncidentWhereInput = {
   occurredAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   latitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFilter<"Incident"> | string
-  pollingUnitId?: Prisma.StringFilter<"Incident"> | string
+  address?: Prisma.StringNullableFilter<"Incident"> | string | null
+  electionId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  pollingUnitId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  wardId?: Prisma.StringNullableFilter<"Incident"> | string | null
   reporterId?: Prisma.StringFilter<"Incident"> | string
   verifierId?: Prisma.StringNullableFilter<"Incident"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
-  election?: Prisma.XOR<Prisma.ElectionScalarRelationFilter, Prisma.ElectionWhereInput>
-  pollingUnit?: Prisma.XOR<Prisma.PollingUnitScalarRelationFilter, Prisma.PollingUnitWhereInput>
+  election?: Prisma.XOR<Prisma.ElectionNullableScalarRelationFilter, Prisma.ElectionWhereInput> | null
+  pollingUnit?: Prisma.XOR<Prisma.PollingUnitNullableScalarRelationFilter, Prisma.PollingUnitWhereInput> | null
+  ward?: Prisma.XOR<Prisma.WardNullableScalarRelationFilter, Prisma.WardWhereInput> | null
   reporter?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   verifier?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
@@ -326,6 +351,7 @@ export type IncidentWhereInput = {
 export type IncidentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   reference?: Prisma.SortOrder
+  domain?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -335,14 +361,17 @@ export type IncidentOrderByWithRelationInput = {
   occurredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  electionId?: Prisma.SortOrder
-  pollingUnitId?: Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  electionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pollingUnitId?: Prisma.SortOrderInput | Prisma.SortOrder
+  wardId?: Prisma.SortOrderInput | Prisma.SortOrder
   reporterId?: Prisma.SortOrder
   verifierId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   election?: Prisma.ElectionOrderByWithRelationInput
   pollingUnit?: Prisma.PollingUnitOrderByWithRelationInput
+  ward?: Prisma.WardOrderByWithRelationInput
   reporter?: Prisma.UserOrderByWithRelationInput
   verifier?: Prisma.UserOrderByWithRelationInput
   media?: Prisma.MediaOrderByRelationAggregateInput
@@ -354,6 +383,7 @@ export type IncidentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.IncidentWhereInput | Prisma.IncidentWhereInput[]
   OR?: Prisma.IncidentWhereInput[]
   NOT?: Prisma.IncidentWhereInput | Prisma.IncidentWhereInput[]
+  domain?: Prisma.EnumIncidentDomainFilter<"Incident"> | $Enums.IncidentDomain
   title?: Prisma.StringFilter<"Incident"> | string
   description?: Prisma.StringFilter<"Incident"> | string
   category?: Prisma.EnumIncidentCategoryFilter<"Incident"> | $Enums.IncidentCategory
@@ -363,14 +393,17 @@ export type IncidentWhereUniqueInput = Prisma.AtLeast<{
   occurredAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   latitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFilter<"Incident"> | string
-  pollingUnitId?: Prisma.StringFilter<"Incident"> | string
+  address?: Prisma.StringNullableFilter<"Incident"> | string | null
+  electionId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  pollingUnitId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  wardId?: Prisma.StringNullableFilter<"Incident"> | string | null
   reporterId?: Prisma.StringFilter<"Incident"> | string
   verifierId?: Prisma.StringNullableFilter<"Incident"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
-  election?: Prisma.XOR<Prisma.ElectionScalarRelationFilter, Prisma.ElectionWhereInput>
-  pollingUnit?: Prisma.XOR<Prisma.PollingUnitScalarRelationFilter, Prisma.PollingUnitWhereInput>
+  election?: Prisma.XOR<Prisma.ElectionNullableScalarRelationFilter, Prisma.ElectionWhereInput> | null
+  pollingUnit?: Prisma.XOR<Prisma.PollingUnitNullableScalarRelationFilter, Prisma.PollingUnitWhereInput> | null
+  ward?: Prisma.XOR<Prisma.WardNullableScalarRelationFilter, Prisma.WardWhereInput> | null
   reporter?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   verifier?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
@@ -379,6 +412,7 @@ export type IncidentWhereUniqueInput = Prisma.AtLeast<{
 export type IncidentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   reference?: Prisma.SortOrder
+  domain?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -388,8 +422,10 @@ export type IncidentOrderByWithAggregationInput = {
   occurredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  electionId?: Prisma.SortOrder
-  pollingUnitId?: Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  electionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pollingUnitId?: Prisma.SortOrderInput | Prisma.SortOrder
+  wardId?: Prisma.SortOrderInput | Prisma.SortOrder
   reporterId?: Prisma.SortOrder
   verifierId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -407,6 +443,7 @@ export type IncidentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.IncidentScalarWhereWithAggregatesInput | Prisma.IncidentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Incident"> | string
   reference?: Prisma.StringWithAggregatesFilter<"Incident"> | string
+  domain?: Prisma.EnumIncidentDomainWithAggregatesFilter<"Incident"> | $Enums.IncidentDomain
   title?: Prisma.StringWithAggregatesFilter<"Incident"> | string
   description?: Prisma.StringWithAggregatesFilter<"Incident"> | string
   category?: Prisma.EnumIncidentCategoryWithAggregatesFilter<"Incident"> | $Enums.IncidentCategory
@@ -416,8 +453,10 @@ export type IncidentScalarWhereWithAggregatesInput = {
   occurredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Incident"> | Date | string | null
   latitude?: Prisma.DecimalNullableWithAggregatesFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableWithAggregatesFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringWithAggregatesFilter<"Incident"> | string
-  pollingUnitId?: Prisma.StringWithAggregatesFilter<"Incident"> | string
+  address?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
+  electionId?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
+  pollingUnitId?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
+  wardId?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
   reporterId?: Prisma.StringWithAggregatesFilter<"Incident"> | string
   verifierId?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Incident"> | Date | string
@@ -427,6 +466,7 @@ export type IncidentScalarWhereWithAggregatesInput = {
 export type IncidentCreateInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -436,10 +476,12 @@ export type IncidentCreateInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  election: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
-  pollingUnit: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
   verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
   media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
@@ -448,6 +490,7 @@ export type IncidentCreateInput = {
 export type IncidentUncheckedCreateInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -457,8 +500,10 @@ export type IncidentUncheckedCreateInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -469,6 +514,7 @@ export type IncidentUncheckedCreateInput = {
 export type IncidentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -478,10 +524,12 @@ export type IncidentUpdateInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  election?: Prisma.ElectionUpdateOneRequiredWithoutIncidentsNestedInput
-  pollingUnit?: Prisma.PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
   media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
@@ -490,6 +538,7 @@ export type IncidentUpdateInput = {
 export type IncidentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -499,8 +548,10 @@ export type IncidentUncheckedUpdateInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -511,6 +562,7 @@ export type IncidentUncheckedUpdateInput = {
 export type IncidentCreateManyInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -520,8 +572,10 @@ export type IncidentCreateManyInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -531,6 +585,7 @@ export type IncidentCreateManyInput = {
 export type IncidentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -540,6 +595,7 @@ export type IncidentUpdateManyMutationInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -547,6 +603,7 @@ export type IncidentUpdateManyMutationInput = {
 export type IncidentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -556,8 +613,10 @@ export type IncidentUncheckedUpdateManyInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -577,6 +636,7 @@ export type IncidentOrderByRelationAggregateInput = {
 export type IncidentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reference?: Prisma.SortOrder
+  domain?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -586,8 +646,10 @@ export type IncidentCountOrderByAggregateInput = {
   occurredAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   electionId?: Prisma.SortOrder
   pollingUnitId?: Prisma.SortOrder
+  wardId?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
   verifierId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -602,6 +664,7 @@ export type IncidentAvgOrderByAggregateInput = {
 export type IncidentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reference?: Prisma.SortOrder
+  domain?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -611,8 +674,10 @@ export type IncidentMaxOrderByAggregateInput = {
   occurredAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   electionId?: Prisma.SortOrder
   pollingUnitId?: Prisma.SortOrder
+  wardId?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
   verifierId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -622,6 +687,7 @@ export type IncidentMaxOrderByAggregateInput = {
 export type IncidentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reference?: Prisma.SortOrder
+  domain?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -631,8 +697,10 @@ export type IncidentMinOrderByAggregateInput = {
   occurredAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   electionId?: Prisma.SortOrder
   pollingUnitId?: Prisma.SortOrder
+  wardId?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
   verifierId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -733,6 +801,48 @@ export type IncidentUncheckedUpdateManyWithoutVerifierNestedInput = {
   deleteMany?: Prisma.IncidentScalarWhereInput | Prisma.IncidentScalarWhereInput[]
 }
 
+export type IncidentCreateNestedManyWithoutWardInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput> | Prisma.IncidentCreateWithoutWardInput[] | Prisma.IncidentUncheckedCreateWithoutWardInput[]
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutWardInput | Prisma.IncidentCreateOrConnectWithoutWardInput[]
+  createMany?: Prisma.IncidentCreateManyWardInputEnvelope
+  connect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+}
+
+export type IncidentUncheckedCreateNestedManyWithoutWardInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput> | Prisma.IncidentCreateWithoutWardInput[] | Prisma.IncidentUncheckedCreateWithoutWardInput[]
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutWardInput | Prisma.IncidentCreateOrConnectWithoutWardInput[]
+  createMany?: Prisma.IncidentCreateManyWardInputEnvelope
+  connect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+}
+
+export type IncidentUpdateManyWithoutWardNestedInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput> | Prisma.IncidentCreateWithoutWardInput[] | Prisma.IncidentUncheckedCreateWithoutWardInput[]
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutWardInput | Prisma.IncidentCreateOrConnectWithoutWardInput[]
+  upsert?: Prisma.IncidentUpsertWithWhereUniqueWithoutWardInput | Prisma.IncidentUpsertWithWhereUniqueWithoutWardInput[]
+  createMany?: Prisma.IncidentCreateManyWardInputEnvelope
+  set?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  disconnect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  delete?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  connect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  update?: Prisma.IncidentUpdateWithWhereUniqueWithoutWardInput | Prisma.IncidentUpdateWithWhereUniqueWithoutWardInput[]
+  updateMany?: Prisma.IncidentUpdateManyWithWhereWithoutWardInput | Prisma.IncidentUpdateManyWithWhereWithoutWardInput[]
+  deleteMany?: Prisma.IncidentScalarWhereInput | Prisma.IncidentScalarWhereInput[]
+}
+
+export type IncidentUncheckedUpdateManyWithoutWardNestedInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput> | Prisma.IncidentCreateWithoutWardInput[] | Prisma.IncidentUncheckedCreateWithoutWardInput[]
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutWardInput | Prisma.IncidentCreateOrConnectWithoutWardInput[]
+  upsert?: Prisma.IncidentUpsertWithWhereUniqueWithoutWardInput | Prisma.IncidentUpsertWithWhereUniqueWithoutWardInput[]
+  createMany?: Prisma.IncidentCreateManyWardInputEnvelope
+  set?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  disconnect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  delete?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  connect?: Prisma.IncidentWhereUniqueInput | Prisma.IncidentWhereUniqueInput[]
+  update?: Prisma.IncidentUpdateWithWhereUniqueWithoutWardInput | Prisma.IncidentUpdateWithWhereUniqueWithoutWardInput[]
+  updateMany?: Prisma.IncidentUpdateManyWithWhereWithoutWardInput | Prisma.IncidentUpdateManyWithWhereWithoutWardInput[]
+  deleteMany?: Prisma.IncidentScalarWhereInput | Prisma.IncidentScalarWhereInput[]
+}
+
 export type IncidentCreateNestedManyWithoutPollingUnitInput = {
   create?: Prisma.XOR<Prisma.IncidentCreateWithoutPollingUnitInput, Prisma.IncidentUncheckedCreateWithoutPollingUnitInput> | Prisma.IncidentCreateWithoutPollingUnitInput[] | Prisma.IncidentUncheckedCreateWithoutPollingUnitInput[]
   connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutPollingUnitInput | Prisma.IncidentCreateOrConnectWithoutPollingUnitInput[]
@@ -817,6 +927,10 @@ export type IncidentUncheckedUpdateManyWithoutElectionNestedInput = {
   deleteMany?: Prisma.IncidentScalarWhereInput | Prisma.IncidentScalarWhereInput[]
 }
 
+export type EnumIncidentDomainFieldUpdateOperationsInput = {
+  set?: $Enums.IncidentDomain
+}
+
 export type EnumIncidentCategoryFieldUpdateOperationsInput = {
   set?: $Enums.IncidentCategory
 }
@@ -852,6 +966,7 @@ export type IncidentUpdateOneWithoutMediaNestedInput = {
 export type IncidentCreateWithoutReporterInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -861,10 +976,12 @@ export type IncidentCreateWithoutReporterInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  election: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
-  pollingUnit: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
   media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
 }
@@ -872,6 +989,7 @@ export type IncidentCreateWithoutReporterInput = {
 export type IncidentUncheckedCreateWithoutReporterInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -881,8 +999,10 @@ export type IncidentUncheckedCreateWithoutReporterInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   verifierId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -902,6 +1022,7 @@ export type IncidentCreateManyReporterInputEnvelope = {
 export type IncidentCreateWithoutVerifierInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -911,10 +1032,12 @@ export type IncidentCreateWithoutVerifierInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  election: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
-  pollingUnit: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
   media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
 }
@@ -922,6 +1045,7 @@ export type IncidentCreateWithoutVerifierInput = {
 export type IncidentUncheckedCreateWithoutVerifierInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -931,8 +1055,10 @@ export type IncidentUncheckedCreateWithoutVerifierInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -971,6 +1097,7 @@ export type IncidentScalarWhereInput = {
   NOT?: Prisma.IncidentScalarWhereInput | Prisma.IncidentScalarWhereInput[]
   id?: Prisma.StringFilter<"Incident"> | string
   reference?: Prisma.StringFilter<"Incident"> | string
+  domain?: Prisma.EnumIncidentDomainFilter<"Incident"> | $Enums.IncidentDomain
   title?: Prisma.StringFilter<"Incident"> | string
   description?: Prisma.StringFilter<"Incident"> | string
   category?: Prisma.EnumIncidentCategoryFilter<"Incident"> | $Enums.IncidentCategory
@@ -980,8 +1107,10 @@ export type IncidentScalarWhereInput = {
   occurredAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   latitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Incident"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFilter<"Incident"> | string
-  pollingUnitId?: Prisma.StringFilter<"Incident"> | string
+  address?: Prisma.StringNullableFilter<"Incident"> | string | null
+  electionId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  pollingUnitId?: Prisma.StringNullableFilter<"Incident"> | string | null
+  wardId?: Prisma.StringNullableFilter<"Incident"> | string | null
   reporterId?: Prisma.StringFilter<"Incident"> | string
   verifierId?: Prisma.StringNullableFilter<"Incident"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
@@ -1004,9 +1133,10 @@ export type IncidentUpdateManyWithWhereWithoutVerifierInput = {
   data: Prisma.XOR<Prisma.IncidentUpdateManyMutationInput, Prisma.IncidentUncheckedUpdateManyWithoutVerifierInput>
 }
 
-export type IncidentCreateWithoutPollingUnitInput = {
+export type IncidentCreateWithoutWardInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1016,9 +1146,83 @@ export type IncidentCreateWithoutPollingUnitInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  election: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
+  verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
+  media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
+}
+
+export type IncidentUncheckedCreateWithoutWardInput = {
+  id?: string
+  reference: string
+  domain?: $Enums.IncidentDomain
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  severity: $Enums.Severity
+  status?: $Enums.IncidentStatus
+  visibility?: $Enums.Visibility
+  occurredAt?: Date | string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  reporterId: string
+  verifierId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutIncidentInput
+}
+
+export type IncidentCreateOrConnectWithoutWardInput = {
+  where: Prisma.IncidentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput>
+}
+
+export type IncidentCreateManyWardInputEnvelope = {
+  data: Prisma.IncidentCreateManyWardInput | Prisma.IncidentCreateManyWardInput[]
+  skipDuplicates?: boolean
+}
+
+export type IncidentUpsertWithWhereUniqueWithoutWardInput = {
+  where: Prisma.IncidentWhereUniqueInput
+  update: Prisma.XOR<Prisma.IncidentUpdateWithoutWardInput, Prisma.IncidentUncheckedUpdateWithoutWardInput>
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutWardInput, Prisma.IncidentUncheckedCreateWithoutWardInput>
+}
+
+export type IncidentUpdateWithWhereUniqueWithoutWardInput = {
+  where: Prisma.IncidentWhereUniqueInput
+  data: Prisma.XOR<Prisma.IncidentUpdateWithoutWardInput, Prisma.IncidentUncheckedUpdateWithoutWardInput>
+}
+
+export type IncidentUpdateManyWithWhereWithoutWardInput = {
+  where: Prisma.IncidentScalarWhereInput
+  data: Prisma.XOR<Prisma.IncidentUpdateManyMutationInput, Prisma.IncidentUncheckedUpdateManyWithoutWardInput>
+}
+
+export type IncidentCreateWithoutPollingUnitInput = {
+  id?: string
+  reference: string
+  domain?: $Enums.IncidentDomain
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  severity: $Enums.Severity
+  status?: $Enums.IncidentStatus
+  visibility?: $Enums.Visibility
+  occurredAt?: Date | string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
   verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
   media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
@@ -1027,6 +1231,7 @@ export type IncidentCreateWithoutPollingUnitInput = {
 export type IncidentUncheckedCreateWithoutPollingUnitInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1036,7 +1241,9 @@ export type IncidentUncheckedCreateWithoutPollingUnitInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
+  address?: string | null
+  electionId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -1073,6 +1280,7 @@ export type IncidentUpdateManyWithWhereWithoutPollingUnitInput = {
 export type IncidentCreateWithoutElectionInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1082,9 +1290,11 @@ export type IncidentCreateWithoutElectionInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  pollingUnit: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
   verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
   media?: Prisma.MediaCreateNestedManyWithoutIncidentInput
@@ -1093,6 +1303,7 @@ export type IncidentCreateWithoutElectionInput = {
 export type IncidentUncheckedCreateWithoutElectionInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1102,7 +1313,9 @@ export type IncidentUncheckedCreateWithoutElectionInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  pollingUnitId: string
+  address?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -1139,6 +1352,7 @@ export type IncidentUpdateManyWithWhereWithoutElectionInput = {
 export type IncidentCreateWithoutMediaInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1148,10 +1362,12 @@ export type IncidentCreateWithoutMediaInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  election: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
-  pollingUnit: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  election?: Prisma.ElectionCreateNestedOneWithoutIncidentsInput
+  pollingUnit?: Prisma.PollingUnitCreateNestedOneWithoutIncidentsInput
+  ward?: Prisma.WardCreateNestedOneWithoutIncidentsInput
   reporter: Prisma.UserCreateNestedOneWithoutReportedIncidentsInput
   verifier?: Prisma.UserCreateNestedOneWithoutVerifiedIncidentsInput
 }
@@ -1159,6 +1375,7 @@ export type IncidentCreateWithoutMediaInput = {
 export type IncidentUncheckedCreateWithoutMediaInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1168,8 +1385,10 @@ export type IncidentUncheckedCreateWithoutMediaInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -1195,6 +1414,7 @@ export type IncidentUpdateToOneWithWhereWithoutMediaInput = {
 export type IncidentUpdateWithoutMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1204,10 +1424,12 @@ export type IncidentUpdateWithoutMediaInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  election?: Prisma.ElectionUpdateOneRequiredWithoutIncidentsNestedInput
-  pollingUnit?: Prisma.PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
 }
@@ -1215,6 +1437,7 @@ export type IncidentUpdateWithoutMediaInput = {
 export type IncidentUncheckedUpdateWithoutMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1224,8 +1447,10 @@ export type IncidentUncheckedUpdateWithoutMediaInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1235,6 +1460,7 @@ export type IncidentUncheckedUpdateWithoutMediaInput = {
 export type IncidentCreateManyReporterInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1244,8 +1470,10 @@ export type IncidentCreateManyReporterInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   verifierId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1254,6 +1482,7 @@ export type IncidentCreateManyReporterInput = {
 export type IncidentCreateManyVerifierInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1263,8 +1492,10 @@ export type IncidentCreateManyVerifierInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
-  pollingUnitId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1273,6 +1504,7 @@ export type IncidentCreateManyVerifierInput = {
 export type IncidentUpdateWithoutReporterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1282,10 +1514,12 @@ export type IncidentUpdateWithoutReporterInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  election?: Prisma.ElectionUpdateOneRequiredWithoutIncidentsNestedInput
-  pollingUnit?: Prisma.PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
   media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
 }
@@ -1293,6 +1527,7 @@ export type IncidentUpdateWithoutReporterInput = {
 export type IncidentUncheckedUpdateWithoutReporterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1302,8 +1537,10 @@ export type IncidentUncheckedUpdateWithoutReporterInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1313,6 +1550,7 @@ export type IncidentUncheckedUpdateWithoutReporterInput = {
 export type IncidentUncheckedUpdateManyWithoutReporterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1322,8 +1560,10 @@ export type IncidentUncheckedUpdateManyWithoutReporterInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1332,6 +1572,7 @@ export type IncidentUncheckedUpdateManyWithoutReporterInput = {
 export type IncidentUpdateWithoutVerifierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1341,10 +1582,12 @@ export type IncidentUpdateWithoutVerifierInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  election?: Prisma.ElectionUpdateOneRequiredWithoutIncidentsNestedInput
-  pollingUnit?: Prisma.PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
 }
@@ -1352,6 +1595,7 @@ export type IncidentUpdateWithoutVerifierInput = {
 export type IncidentUncheckedUpdateWithoutVerifierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1361,8 +1605,10 @@ export type IncidentUncheckedUpdateWithoutVerifierInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1372,6 +1618,7 @@ export type IncidentUncheckedUpdateWithoutVerifierInput = {
 export type IncidentUncheckedUpdateManyWithoutVerifierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1381,16 +1628,19 @@ export type IncidentUncheckedUpdateManyWithoutVerifierInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type IncidentCreateManyPollingUnitInput = {
+export type IncidentCreateManyWardInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1400,7 +1650,99 @@ export type IncidentCreateManyPollingUnitInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId: string
+  address?: string | null
+  electionId?: string | null
+  pollingUnitId?: string | null
+  reporterId: string
+  verifierId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type IncidentUpdateWithoutWardInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
+  verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
+}
+
+export type IncidentUncheckedUpdateWithoutWardInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reporterId?: Prisma.StringFieldUpdateOperationsInput | string
+  verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutIncidentNestedInput
+}
+
+export type IncidentUncheckedUpdateManyWithoutWardInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reporterId?: Prisma.StringFieldUpdateOperationsInput | string
+  verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type IncidentCreateManyPollingUnitInput = {
+  id?: string
+  reference: string
+  domain?: $Enums.IncidentDomain
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  severity: $Enums.Severity
+  status?: $Enums.IncidentStatus
+  visibility?: $Enums.Visibility
+  occurredAt?: Date | string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  electionId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -1410,6 +1752,7 @@ export type IncidentCreateManyPollingUnitInput = {
 export type IncidentUpdateWithoutPollingUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1419,9 +1762,11 @@ export type IncidentUpdateWithoutPollingUnitInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  election?: Prisma.ElectionUpdateOneRequiredWithoutIncidentsNestedInput
+  election?: Prisma.ElectionUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
   media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
@@ -1430,6 +1775,7 @@ export type IncidentUpdateWithoutPollingUnitInput = {
 export type IncidentUncheckedUpdateWithoutPollingUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1439,7 +1785,9 @@ export type IncidentUncheckedUpdateWithoutPollingUnitInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1450,6 +1798,7 @@ export type IncidentUncheckedUpdateWithoutPollingUnitInput = {
 export type IncidentUncheckedUpdateManyWithoutPollingUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1459,7 +1808,9 @@ export type IncidentUncheckedUpdateManyWithoutPollingUnitInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  electionId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  electionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1469,6 +1820,7 @@ export type IncidentUncheckedUpdateManyWithoutPollingUnitInput = {
 export type IncidentCreateManyElectionInput = {
   id?: string
   reference: string
+  domain?: $Enums.IncidentDomain
   title: string
   description: string
   category: $Enums.IncidentCategory
@@ -1478,7 +1830,9 @@ export type IncidentCreateManyElectionInput = {
   occurredAt?: Date | string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  pollingUnitId: string
+  address?: string | null
+  pollingUnitId?: string | null
+  wardId?: string | null
   reporterId: string
   verifierId?: string | null
   createdAt?: Date | string
@@ -1488,6 +1842,7 @@ export type IncidentCreateManyElectionInput = {
 export type IncidentUpdateWithoutElectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1497,9 +1852,11 @@ export type IncidentUpdateWithoutElectionInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pollingUnit?: Prisma.PollingUnitUpdateOneRequiredWithoutIncidentsNestedInput
+  pollingUnit?: Prisma.PollingUnitUpdateOneWithoutIncidentsNestedInput
+  ward?: Prisma.WardUpdateOneWithoutIncidentsNestedInput
   reporter?: Prisma.UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   verifier?: Prisma.UserUpdateOneWithoutVerifiedIncidentsNestedInput
   media?: Prisma.MediaUpdateManyWithoutIncidentNestedInput
@@ -1508,6 +1865,7 @@ export type IncidentUpdateWithoutElectionInput = {
 export type IncidentUncheckedUpdateWithoutElectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1517,7 +1875,9 @@ export type IncidentUncheckedUpdateWithoutElectionInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1528,6 +1888,7 @@ export type IncidentUncheckedUpdateWithoutElectionInput = {
 export type IncidentUncheckedUpdateManyWithoutElectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reference?: Prisma.StringFieldUpdateOperationsInput | string
+  domain?: Prisma.EnumIncidentDomainFieldUpdateOperationsInput | $Enums.IncidentDomain
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
@@ -1537,7 +1898,9 @@ export type IncidentUncheckedUpdateManyWithoutElectionInput = {
   occurredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  pollingUnitId?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pollingUnitId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
   verifierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1578,6 +1941,7 @@ export type IncidentCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.
 export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   reference?: boolean
+  domain?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
@@ -1587,14 +1951,17 @@ export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   occurredAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  address?: boolean
   electionId?: boolean
   pollingUnitId?: boolean
+  wardId?: boolean
   reporterId?: boolean
   verifierId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
   media?: boolean | Prisma.Incident$mediaArgs<ExtArgs>
@@ -1604,6 +1971,7 @@ export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type IncidentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   reference?: boolean
+  domain?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
@@ -1613,14 +1981,17 @@ export type IncidentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   occurredAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  address?: boolean
   electionId?: boolean
   pollingUnitId?: boolean
+  wardId?: boolean
   reporterId?: boolean
   verifierId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
 }, ExtArgs["result"]["incident"]>
@@ -1628,6 +1999,7 @@ export type IncidentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type IncidentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   reference?: boolean
+  domain?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
@@ -1637,14 +2009,17 @@ export type IncidentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   occurredAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  address?: boolean
   electionId?: boolean
   pollingUnitId?: boolean
+  wardId?: boolean
   reporterId?: boolean
   verifierId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
 }, ExtArgs["result"]["incident"]>
@@ -1652,6 +2027,7 @@ export type IncidentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type IncidentSelectScalar = {
   id?: boolean
   reference?: boolean
+  domain?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
@@ -1661,32 +2037,37 @@ export type IncidentSelectScalar = {
   occurredAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  address?: boolean
   electionId?: boolean
   pollingUnitId?: boolean
+  wardId?: boolean
   reporterId?: boolean
   verifierId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type IncidentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reference" | "title" | "description" | "category" | "severity" | "status" | "visibility" | "occurredAt" | "latitude" | "longitude" | "electionId" | "pollingUnitId" | "reporterId" | "verifierId" | "createdAt" | "updatedAt", ExtArgs["result"]["incident"]>
+export type IncidentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reference" | "domain" | "title" | "description" | "category" | "severity" | "status" | "visibility" | "occurredAt" | "latitude" | "longitude" | "address" | "electionId" | "pollingUnitId" | "wardId" | "reporterId" | "verifierId" | "createdAt" | "updatedAt", ExtArgs["result"]["incident"]>
 export type IncidentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
   media?: boolean | Prisma.Incident$mediaArgs<ExtArgs>
   _count?: boolean | Prisma.IncidentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IncidentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
 }
 export type IncidentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  election?: boolean | Prisma.ElectionDefaultArgs<ExtArgs>
-  pollingUnit?: boolean | Prisma.PollingUnitDefaultArgs<ExtArgs>
+  election?: boolean | Prisma.Incident$electionArgs<ExtArgs>
+  pollingUnit?: boolean | Prisma.Incident$pollingUnitArgs<ExtArgs>
+  ward?: boolean | Prisma.Incident$wardArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verifier?: boolean | Prisma.Incident$verifierArgs<ExtArgs>
 }
@@ -1694,8 +2075,9 @@ export type IncidentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Incident"
   objects: {
-    election: Prisma.$ElectionPayload<ExtArgs>
-    pollingUnit: Prisma.$PollingUnitPayload<ExtArgs>
+    election: Prisma.$ElectionPayload<ExtArgs> | null
+    pollingUnit: Prisma.$PollingUnitPayload<ExtArgs> | null
+    ward: Prisma.$WardPayload<ExtArgs> | null
     reporter: Prisma.$UserPayload<ExtArgs>
     verifier: Prisma.$UserPayload<ExtArgs> | null
     media: Prisma.$MediaPayload<ExtArgs>[]
@@ -1703,6 +2085,7 @@ export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     reference: string
+    domain: $Enums.IncidentDomain
     title: string
     description: string
     category: $Enums.IncidentCategory
@@ -1712,8 +2095,10 @@ export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     occurredAt: Date | null
     latitude: runtime.Decimal | null
     longitude: runtime.Decimal | null
-    electionId: string
-    pollingUnitId: string
+    address: string | null
+    electionId: string | null
+    pollingUnitId: string | null
+    wardId: string | null
     reporterId: string
     verifierId: string | null
     createdAt: Date
@@ -2112,8 +2497,9 @@ readonly fields: IncidentFieldRefs;
  */
 export interface Prisma__IncidentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  election<T extends Prisma.ElectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ElectionDefaultArgs<ExtArgs>>): Prisma.Prisma__ElectionClient<runtime.Types.Result.GetResult<Prisma.$ElectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  pollingUnit<T extends Prisma.PollingUnitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PollingUnitDefaultArgs<ExtArgs>>): Prisma.Prisma__PollingUnitClient<runtime.Types.Result.GetResult<Prisma.$PollingUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  election<T extends Prisma.Incident$electionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$electionArgs<ExtArgs>>): Prisma.Prisma__ElectionClient<runtime.Types.Result.GetResult<Prisma.$ElectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  pollingUnit<T extends Prisma.Incident$pollingUnitArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$pollingUnitArgs<ExtArgs>>): Prisma.Prisma__PollingUnitClient<runtime.Types.Result.GetResult<Prisma.$PollingUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  ward<T extends Prisma.Incident$wardArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$wardArgs<ExtArgs>>): Prisma.Prisma__WardClient<runtime.Types.Result.GetResult<Prisma.$WardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reporter<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   verifier<T extends Prisma.Incident$verifierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$verifierArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   media<T extends Prisma.Incident$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2148,6 +2534,7 @@ export interface Prisma__IncidentClient<T, Null = never, ExtArgs extends runtime
 export interface IncidentFieldRefs {
   readonly id: Prisma.FieldRef<"Incident", 'String'>
   readonly reference: Prisma.FieldRef<"Incident", 'String'>
+  readonly domain: Prisma.FieldRef<"Incident", 'IncidentDomain'>
   readonly title: Prisma.FieldRef<"Incident", 'String'>
   readonly description: Prisma.FieldRef<"Incident", 'String'>
   readonly category: Prisma.FieldRef<"Incident", 'IncidentCategory'>
@@ -2157,8 +2544,10 @@ export interface IncidentFieldRefs {
   readonly occurredAt: Prisma.FieldRef<"Incident", 'DateTime'>
   readonly latitude: Prisma.FieldRef<"Incident", 'Decimal'>
   readonly longitude: Prisma.FieldRef<"Incident", 'Decimal'>
+  readonly address: Prisma.FieldRef<"Incident", 'String'>
   readonly electionId: Prisma.FieldRef<"Incident", 'String'>
   readonly pollingUnitId: Prisma.FieldRef<"Incident", 'String'>
+  readonly wardId: Prisma.FieldRef<"Incident", 'String'>
   readonly reporterId: Prisma.FieldRef<"Incident", 'String'>
   readonly verifierId: Prisma.FieldRef<"Incident", 'String'>
   readonly createdAt: Prisma.FieldRef<"Incident", 'DateTime'>
@@ -2561,6 +2950,63 @@ export type IncidentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Incidents to delete.
    */
   limit?: number
+}
+
+/**
+ * Incident.election
+ */
+export type Incident$electionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Election
+   */
+  select?: Prisma.ElectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Election
+   */
+  omit?: Prisma.ElectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectionInclude<ExtArgs> | null
+  where?: Prisma.ElectionWhereInput
+}
+
+/**
+ * Incident.pollingUnit
+ */
+export type Incident$pollingUnitArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PollingUnit
+   */
+  select?: Prisma.PollingUnitSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PollingUnit
+   */
+  omit?: Prisma.PollingUnitOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PollingUnitInclude<ExtArgs> | null
+  where?: Prisma.PollingUnitWhereInput
+}
+
+/**
+ * Incident.ward
+ */
+export type Incident$wardArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ward
+   */
+  select?: Prisma.WardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ward
+   */
+  omit?: Prisma.WardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WardInclude<ExtArgs> | null
+  where?: Prisma.WardWhereInput
 }
 
 /**

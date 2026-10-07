@@ -7,26 +7,11 @@ generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
   moduleFormat = "cjs"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-}
-
-model User {
-  id          String   @id @default(uuid())
-  fullName    String
-  email       String   @unique
-  password    String
-  role        Role @default(CITIZEN)
-  refreshToken String?  // Optional field for storing refresh tokens
-
-  reportedIncidents   Incident[] @relation("ReportedIncidents")
-  verifiedIncidents   Incident[] @relation("VerifiedIncidents")
-  uploadedMedia       Media[]
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  deletedAt           DateTime?
 }
 
 enum Role {
@@ -41,7 +26,22 @@ enum Visibility {
   PUBLIC
 }
 
+enum IncidentDomain {
+  COMMUNITY
+  ELECTION
+}
+
 enum IncidentCategory {
+  // COMMUNITY
+  THEFT
+  ROADBLOCK
+  TRAFFIC
+  RTA
+  FIRE
+  UTILITY_OUTAGE
+  OTHER_COMMUNITY
+
+  // ELECTION (existing — unchanged)
   LOW_TURNOUT
   LATE_OPENING
   EARLY_CLOSURE
@@ -89,6 +89,35 @@ enum MediaType {
   DOCUMENT
 }
 
+enum ResultSubmissionStatus {
+  SUBMITTED
+  CORROBORATED  // matches ≥1 other submission
+  DISPUTED      // conflicts with another submission
+  OFFICIAL       // promoted into ElectionResult
+}
+
+model User {
+  id          String   @id @default(uuid())
+  fullName    String
+  email       String   @unique
+  password    String
+  role        Role @default(CITIZEN)
+  refreshToken String?  // Optional field for storing refresh tokens
+
+  reportedIncidents   Incident[] @relation("ReportedIncidents")
+  verifiedIncidents   Incident[] @relation("VerifiedIncidents")
+  uploadedMedia       Media[]
+  resultSubmissions   ElectionResultSubmission[]
+
+  reportCount         Int @default(0)
+  verifiedCount       Int @default(0)
+  trustScore          Float @default(0.0)
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  deletedAt           DateTime?
+}
+
 model State {
   id        String @id @default(uuid())
   name      String @unique
@@ -122,6 +151,7 @@ model Ward {
   lgaId     String
   lga       Lga @relation(fields: [lgaId], references: [id], onDelete: Cascade)
   pollingUnits PollingUnit[]
+  incidents Incident[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
@@ -141,6 +171,7 @@ model PollingUnit {
   wardId        String
   ward          Ward @relation(fields: [wardId], references: [id], onDelete: Cascade)
   incidents     Incident[]
+  resultSubmissions ElectionResultSubmission[]
   results       ElectionResult[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -154,18 +185,6 @@ model PollingUnit {
   @@index([code])
 }
 
-// model Election {
-//   id          String   @id @default(uuid())
-//   name        String
-//   typeId      String
-//   type        ElectionType @relation(fields: [typeId], references: [id])
-//   electionDate DateTime
-//   isActive    Boolean  @default(false)
-
-//   incidents   Incident[]
-//   results     ElectionResult[]
-// }
-
 model Election {
   id            String   @id @default(uuid())
   name          String
@@ -175,17 +194,32 @@ model Election {
   reference     String   @unique
   isActive      Boolean @default(false)
   incidents      Incident[]
+  resultSubmissions ElectionResultSubmission[]
   results        ElectionResult[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
-// model ElectionType {
-//   id          String   @id @default(uuid())
-//   name        String   @unique
-//   description String?
-//   elections   Election[]
-// }
+model ElectionResultSubmission {
+  id            String   @id @default(uuid())
+  electionId    String
+  election      Election @relation(fields:[electionId], references:[id])
+  pollingUnitId String
+  pollingUnit   PollingUnit @relation(fields:[pollingUnitId], references:[id])
+
+  submitterId   String
+  submitter     User @relation(fields:[submitterId], references:[id])
+
+  tallies         Json     // { candidateName: votes }
+  resultSheetUrl  String   // photo of the physical form
+  status          ResultSubmissionStatus @default(SUBMITTED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([pollingUnitId, electionId])
+  @@index([status])
+}
 
 model ElectionResult {
   id            String   @id @default(uuid())
@@ -203,6 +237,7 @@ model ElectionResult {
 model Incident {
   id            String @id @default(uuid())
   reference     String   @unique
+  domain        IncidentDomain @default(COMMUNITY)
   title         String
   description   String @db.Text
   category      IncidentCategory
@@ -213,12 +248,17 @@ model Incident {
   occurredAt    DateTime?
   latitude      Decimal?
   longitude     Decimal?
+  address       String?          // reverse-geocoded, for reports with no PU
 
-  electionId    String
-  election      Election @relation(fields:[electionId], references:[id])
+  electionId    String?
+  election      Election? @relation(fields:[electionId], references:[id])
 
-  pollingUnitId String
-  pollingUnit   PollingUnit @relation(fields:[pollingUnitId], references:[id])
+  pollingUnitId String?
+  pollingUnit   PollingUnit? @relation(fields:[pollingUnitId], references:[id])
+
+  // NEW — lets a community report be Ward-level without a polling unit
+  wardId        String?
+  ward          Ward? @relation(fields:[wardId], references:[id])
 
   reporterId    String
   reporter      User @relation("ReportedIncidents", fields:[reporterId], references:[id])
@@ -234,8 +274,10 @@ model Incident {
   @@index([category])
   @@index([severity])
   @@index([pollingUnitId])
+  @@index([wardId])
   @@index([reporterId])
   @@index([electionId])
+  @@index([domain])
 }
 
 model Media {

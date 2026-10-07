@@ -1,0 +1,1522 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/incidents": {
+      "post": {
+        "operationId": "IncidentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIncidentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Incidents"
+        ]
+      },
+      "get": {
+        "operationId": "IncidentsController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "description": "The page number for pagination (default is 1)",
+            "schema": {
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The number of incidents to return per page (default is 20)",
+            "schema": {
+              "example": 20
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "A search term to filter incidents by title or description",
+            "schema": {
+              "example": "search term",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by status",
+            "schema": {
+              "example": "PENDING",
+              "type": "string",
+              "enum": [
+                "PENDING",
+                "VERIFIED",
+                "REJECTED",
+                "RESOLVED"
+              ]
+            }
+          },
+          {
+            "name": "severity",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by severity",
+            "schema": {
+              "example": "LOW",
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by category",
+            "schema": {
+              "example": "OTHER",
+              "type": "string",
+              "enum": [
+                "THEFT",
+                "ROADBLOCK",
+                "TRAFFIC",
+                "RTA",
+                "FIRE",
+                "UTILITY_OUTAGE",
+                "OTHER_COMMUNITY",
+                "LOW_TURNOUT",
+                "LATE_OPENING",
+                "EARLY_CLOSURE",
+                "MISSING_MATERIALS",
+                "VIOLENCE",
+                "INTIMIDATION",
+                "VOTE_BUYING",
+                "BALLOT_SNATCHING",
+                "UNDERAGE_VOTING",
+                "OVER_VOTING",
+                "DEVICE_FAILURE",
+                "SECURITY_ISSUE",
+                "RESULT_TAMPERING",
+                "OTHER"
+              ]
+            }
+          },
+          {
+            "name": "electionId",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by election ID",
+            "schema": {
+              "example": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "pollingUnitId",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by polling unit ID",
+            "schema": {
+              "example": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "reporterId",
+            "required": false,
+            "in": "query",
+            "description": "Filter incidents by reporter ID",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "The start date for the date range filter",
+            "schema": {
+              "format": "date-time",
+              "example": "2026-10-07T04:25:49.462Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "The end date for the date range filter",
+            "schema": {
+              "format": "date-time",
+              "example": "2026-10-07T04:25:49.462Z",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/incidents/{id}": {
+      "get": {
+        "operationId": "IncidentsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/polling-units": {
+      "post": {
+        "operationId": "PollingUnitsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePollingUnitDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Polling Units"
+        ]
+      },
+      "get": {
+        "operationId": "PollingUnitsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Polling Units"
+        ]
+      }
+    },
+    "/polling-units/search": {
+      "get": {
+        "operationId": "PollingUnitsController_search",
+        "parameters": [
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Polling Units"
+        ]
+      }
+    },
+    "/polling-units/ward/{wardId}": {
+      "get": {
+        "operationId": "PollingUnitsController_findByWard",
+        "parameters": [
+          {
+            "name": "wardId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Polling Units"
+        ]
+      }
+    },
+    "/polling-units/{id}": {
+      "get": {
+        "operationId": "PollingUnitsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Polling Units"
+        ]
+      },
+      "patch": {
+        "operationId": "PollingUnitsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePollingUnitDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Polling Units"
+        ]
+      },
+      "delete": {
+        "operationId": "PollingUnitsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Polling Units"
+        ]
+      }
+    },
+    "/elections": {
+      "post": {
+        "operationId": "ElectionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateElectionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Elections"
+        ]
+      },
+      "get": {
+        "operationId": "ElectionsController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "The page number for pagination (default is 1)",
+            "schema": {
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The number of elections to return per page (default is 20)",
+            "schema": {
+              "example": 20
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter elections by type",
+            "schema": {
+              "example": "PRESIDENTIAL",
+              "type": "string",
+              "enum": [
+                "PRESIDENTIAL",
+                "GOVERNORSHIP",
+                "SENATORIAL",
+                "HOUSE_OF_REPS",
+                "STATE_ASSEMBLY",
+                "LOCAL_GOVERNMENT",
+                "BY_ELECTION"
+              ]
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "Filter elections taking place on or after this date",
+            "schema": {
+              "example": "2026-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "Filter elections taking place on or before this date",
+            "schema": {
+              "example": "2026-12-31",
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "in": "query",
+            "description": "Filter elections by active status",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Elections"
+        ]
+      }
+    },
+    "/elections/{id}": {
+      "get": {
+        "operationId": "ElectionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Elections"
+        ]
+      },
+      "patch": {
+        "operationId": "ElectionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateElectionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Elections"
+        ]
+      },
+      "delete": {
+        "operationId": "ElectionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Elections"
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/users/me": {
+      "get": {
+        "operationId": "UsersController_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/users/dashboard": {
+      "get": {
+        "operationId": "UsersController_dashboard",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/states": {
+      "post": {
+        "operationId": "StatesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "States"
+        ]
+      },
+      "get": {
+        "operationId": "StatesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "States"
+        ]
+      }
+    },
+    "/states/{id}": {
+      "get": {
+        "operationId": "StatesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "States"
+        ]
+      },
+      "patch": {
+        "operationId": "StatesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "States"
+        ]
+      },
+      "delete": {
+        "operationId": "StatesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "States"
+        ]
+      }
+    },
+    "/lgas": {
+      "post": {
+        "operationId": "LgasController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLgaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "LGAs"
+        ]
+      },
+      "get": {
+        "operationId": "LgasController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LGAs"
+        ]
+      }
+    },
+    "/lgas/state/{stateId}": {
+      "get": {
+        "operationId": "LgasController_findByState",
+        "parameters": [
+          {
+            "name": "stateId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LGAs"
+        ]
+      }
+    },
+    "/lgas/{id}": {
+      "get": {
+        "operationId": "LgasController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LGAs"
+        ]
+      },
+      "patch": {
+        "operationId": "LgasController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLgaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "LGAs"
+        ]
+      },
+      "delete": {
+        "operationId": "LgasController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "LGAs"
+        ]
+      }
+    },
+    "/wards": {
+      "post": {
+        "operationId": "WardsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWardDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Wards"
+        ]
+      },
+      "get": {
+        "operationId": "WardsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Wards"
+        ]
+      }
+    },
+    "/wards/lga/{lgaId}": {
+      "get": {
+        "operationId": "WardsController_findByLga",
+        "parameters": [
+          {
+            "name": "lgaId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Wards"
+        ]
+      }
+    },
+    "/wards/{id}": {
+      "get": {
+        "operationId": "WardsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Wards"
+        ]
+      },
+      "patch": {
+        "operationId": "WardsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWardDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Wards"
+        ]
+      },
+      "delete": {
+        "operationId": "WardsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Wards"
+        ]
+      }
+    },
+    "/media": {
+      "post": {
+        "operationId": "MediaController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadMediaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Media"
+        ]
+      },
+      "get": {
+        "operationId": "MediaController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {}
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {}
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "IMAGE",
+                "VIDEO",
+                "AUDIO",
+                "DOCUMENT"
+              ]
+            }
+          },
+          {
+            "name": "incidentId",
+            "required": false,
+            "in": "query",
+            "description": "The ID of the incident to which the media belongs",
+            "schema": {
+              "example": "123e4567-e89b-12d3-a456-426614174",
+              "type": "string"
+            }
+          },
+          {
+            "name": "uploadedById",
+            "required": false,
+            "in": "query",
+            "description": "The ID of the user who uploaded the media",
+            "schema": {
+              "example": "123e4567-e89b-12d3-a456-426614174",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Media"
+        ]
+      }
+    },
+    "/media/{id}": {
+      "get": {
+        "operationId": "MediaController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Media"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Election Monitor API",
+    "description": "API for monitoring election data",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "election-monitor",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateIncidentDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreatePollingUnitDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdatePollingUnitDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateElectionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "2023 General Elections",
+            "description": "The name of the election"
+          },
+          "description": {
+            "type": "string",
+            "example": "General elections for the year 2023",
+            "description": "A brief description of the election"
+          },
+          "type": {
+            "type": "string",
+            "example": "PRESIDENTIAL",
+            "description": "The type of the election",
+            "enum": [
+              "PRESIDENTIAL",
+              "GOVERNORSHIP",
+              "SENATORIAL",
+              "HOUSE_OF_REPS",
+              "STATE_ASSEMBLY",
+              "LOCAL_GOVERNMENT",
+              "BY_ELECTION"
+            ]
+          },
+          "electionDate": {
+            "type": "object",
+            "example": "2023-01-01",
+            "description": "The date of the election"
+          },
+          "reference": {
+            "type": "string",
+            "example": "ELEC-2023-001",
+            "description": "The reference number for the election"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indicates if the election is active"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "type",
+          "electionDate",
+          "reference",
+          "isActive"
+        ]
+      },
+      "UpdateElectionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "2023 General Elections",
+            "description": "The name of the election"
+          },
+          "description": {
+            "type": "string",
+            "example": "General elections for the year 2023",
+            "description": "A brief description of the election"
+          },
+          "type": {
+            "type": "string",
+            "example": "PRESIDENTIAL",
+            "description": "The type of the election",
+            "enum": [
+              "PRESIDENTIAL",
+              "GOVERNORSHIP",
+              "SENATORIAL",
+              "HOUSE_OF_REPS",
+              "STATE_ASSEMBLY",
+              "LOCAL_GOVERNMENT",
+              "BY_ELECTION"
+            ]
+          },
+          "electionDate": {
+            "type": "object",
+            "example": "2023-01-01",
+            "description": "The date of the election"
+          },
+          "reference": {
+            "type": "string",
+            "example": "ELEC-2023-001",
+            "description": "The reference number for the election"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indicates if the election is active"
+          }
+        }
+      },
+      "RegisterDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateStateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Lagos"
+          },
+          "code": {
+            "type": "string",
+            "example": "LA"
+          }
+        },
+        "required": [
+          "name",
+          "code"
+        ]
+      },
+      "UpdateStateDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateLgaDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Ikeja"
+          },
+          "stateId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "stateId"
+        ]
+      },
+      "UpdateLgaDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateWardDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Ward A"
+          },
+          "lgaId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "lgaId"
+        ]
+      },
+      "UpdateWardDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UploadMediaDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "IMAGE",
+              "VIDEO",
+              "AUDIO",
+              "DOCUMENT"
+            ],
+            "example": "IMAGE",
+            "description": "The type of media being uploaded"
+          },
+          "incidentId": {
+            "type": "string",
+            "description": "The ID of the incident associated with the media"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      }
+    }
+  }
+}
