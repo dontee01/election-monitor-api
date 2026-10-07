@@ -12,7 +12,8 @@ import {
 
 import { Type } from 'class-transformer';
 
-import { IncidentCategory } from 'src/common/enums/incident-category.enum';
+import { IncidentCategory } from 'src/generated/prisma/enums';
+// import { IncidentCategory } from 'src/common/enums/incident-category.enum';
 import { IncidentSeverity } from 'src/common/enums/incident-severity.enum';
 
 export enum IncidentDomain {
